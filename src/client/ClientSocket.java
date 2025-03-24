@@ -16,7 +16,7 @@ public class ClientSocket {
             PrintWriter out = new PrintWriter(conn.getOutputStream(), true); // true para autoflush
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             mensagem = in.readLine();
-
+            
         }
     }
 }
