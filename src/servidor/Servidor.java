@@ -16,7 +16,7 @@ public class Servidor {
     private static Hotel hotel;
 
     public void startServer() throws IOException {
-        
+
         try (ServerSocket server = new ServerSocket(80)) {
             System.out.println("Aguardando conexão");
             server.setReuseAddress(true);
@@ -345,10 +345,13 @@ public class Servidor {
             out.println("Sem pessoas cadastradas");
             return;
         }
-        String cpf = in.readLine();
+    
+        String cpf = in.readLine(); // Read the CPF sent by the client
+    
+      
         Pessoa pessoa = getPessoaByCpf(cpf);
         if (pessoa != null) {
-            out.println(pessoa.toString());
+            out.println(pessoa.getCpf() + ";" + pessoa.getNome() + ";" + pessoa.getEndereco());
         } else {
             out.println("Pessoa não encontrada");
         }

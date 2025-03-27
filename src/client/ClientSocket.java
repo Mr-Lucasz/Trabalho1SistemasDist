@@ -14,10 +14,15 @@ public class ClientSocket {
             PrintWriter out = new PrintWriter(conn.getOutputStream(), true); // true para autoflush
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            // Send msg in server
+            // Send msg to server
             out.println(mensagem);
 
-            // Receber response
+            // Check if the operation expects a response
+            if (mensagem.startsWith("INSERT_PESSOA")) {
+                return ""; // No response expected for INSERT_PESSOA
+            }
+
+            // Receive response
             StringBuilder resposta = new StringBuilder();
             String linha;
             while ((linha = in.readLine()) != null) {

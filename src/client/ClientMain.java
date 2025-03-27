@@ -16,14 +16,17 @@ public class ClientMain {
             System.out.println("3. Obter Pessoa");
             System.out.println("4. Remover Pessoa");
             System.out.println("5. Listar Pessoas");
-            System.out.println("6. Sair");
-            System.out.println("7. Inserir Hotel");
-            System.out.println("8. Atualizar Hotel");
-            System.out.println("9. Obter Hotel");
-            System.out.println("10. Remover Hotel");
-            System.out.println("11. Listar Hoteis");
-            System.out.println("12. Vincular Client a Hotel");
-            System.out.println("13. Vincular Funcionario a Hotel\n");
+            System.out.println("6. Inserir Cliente");
+            System.out.println("7. Atualizar Cliente");
+            System.out.println("8. Obter Cliente");
+            System.out.println("9. Remover Cliente");
+            System.out.println("10. Listar Clientes");
+            System.out.println("11. Inserir Funcionário");
+            System.out.println("12. Atualizar Funcionário");
+            System.out.println("13. Obter Funcionário");
+            System.out.println("14. Remover Funcionário");
+            System.out.println("15. Listar Funcionários");
+            System.out.println("16. Sair");
             int option = scanner.nextInt();
             scanner.nextLine();
 
@@ -63,39 +66,92 @@ public class ClientMain {
                 }
                 case 5 -> mensagem = "LIST_PESSOA";
                 case 6 -> {
-                    System.out.println("Saindo...");
-                    scanner.close();
-                    return;
-                }
-                case 7 -> {
-                    System.out.println("Inserir Hotel:");
+                    System.out.println("Inserir Cliente:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
                     System.out.print("Nome: ");
                     String nome = scanner.nextLine();
                     System.out.print("Endereço: ");
                     String endereco = scanner.nextLine();
-                    System.out.print("Quartos: ");
-                    int quartos = scanner.nextInt();
-                    System.out.print("Vagas: ");
-                    int vagas = scanner.nextInt();
-                    System.out.print("Classificação: ");
-                    double classificacao = scanner.nextDouble();
+                    System.out.print("Reserva: ");
+                    int reserva = scanner.nextInt();
                     scanner.nextLine();
-                    mensagem = "INSERT_HOTEL;" + nome + ";" + endereco + ";"
-                            + quartos + ";" + vagas + ";" + classificacao;
+                    mensagem = "INSERT_CLIENTE;" + cpf + ";" + nome + ";" + endereco + ";" + reserva;
                 }
-
+                case 7 -> {
+                    System.out.println("Atualizar Cliente:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Endereço: ");
+                    String endereco = scanner.nextLine();
+                    System.out.print("Reserva: ");
+                    int reserva = scanner.nextInt();
+                    scanner.nextLine();
+                    mensagem = "UPDATE_CLIENTE;" + cpf + ";" + nome + ";" + endereco + ";" + reserva;
+                }
                 case 8 -> {
-                    System.out.print("CPF do Cliente: ");
+                    System.out.println("Obter Cliente:");
+                    System.out.print("CPF: ");
                     String cpf = scanner.nextLine();
-                    mensagem = "VINCULAR_CLIENTE;" + cpf;
+                    mensagem = "GET_CLIENTE;" + cpf;
                 }
-
                 case 9 -> {
-                    System.out.print("CPF do Funcionário: ");
+                    System.out.println("Remover Cliente:");
+                    System.out.print("CPF: ");
                     String cpf = scanner.nextLine();
-                    mensagem = "VINCULAR_FUNCIONARIO;" + cpf;
+                    mensagem = "DELETE_CLIENTE;" + cpf;
                 }
-
+                case 10 -> mensagem = "LIST_CLIENTE";
+                case 11 -> {
+                    System.out.println("Inserir Funcionário:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Endereço: ");
+                    String endereco = scanner.nextLine();
+                    System.out.print("Salário: ");
+                    int salario = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Função: ");
+                    String funcao = scanner.nextLine();
+                    mensagem = "INSERT_FUNCIONARIO;" + cpf + ";" + nome + ";" + endereco + ";" + salario + ";" + funcao;
+                }
+                case 12 -> {
+                    System.out.println("Atualizar Funcionário:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Endereço: ");
+                    String endereco = scanner.nextLine();
+                    System.out.print("Salário: ");
+                    int salario = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Função: ");
+                    String funcao = scanner.nextLine();
+                    mensagem = "UPDATE_FUNCIONARIO;" + cpf + ";" + nome + ";" + endereco + ";" + salario + ";" + funcao;
+                }
+                case 13 -> {
+                    System.out.println("Obter Funcionário:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    mensagem = "GET_FUNCIONARIO;" + cpf;
+                }
+                case 14 -> {
+                    System.out.println("Remover Funcionário:");
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    mensagem = "DELETE_FUNCIONARIO;" + cpf;
+                }
+                case 15 -> mensagem = "LIST_FUNCIONARIO";
+                case 16 -> {
+                    System.out.println("Saindo...");
+                    scanner.close();
+                    return;
+                }
                 default -> {
                     System.out.println("Opção inválida.");
                     continue;
