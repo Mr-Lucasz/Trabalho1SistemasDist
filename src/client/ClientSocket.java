@@ -11,7 +11,7 @@ public class ClientSocket {
         System.out.println("Conectando ao servidor...");
         try (Socket conn = new Socket(ip, 80)) {
             System.out.println("Conectado ao servidor.");
-            PrintWriter out = new PrintWriter(conn.getOutputStream(), true); // true para autoflush
+            PrintWriter out = new PrintWriter(conn.getOutputStream(), true); 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             // Send msg to server
