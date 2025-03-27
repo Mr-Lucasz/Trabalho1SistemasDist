@@ -12,25 +12,23 @@ import model.Pessoa;
 
 public class Servidor {
 
-    //private static List<Pessoa> pessoas;
+    // private static List<Pessoa> pessoas;
     private static Hotel hotel;
+
     public void startServer() throws IOException {
-        try(ServerSocket server = new ServerSocket(80))
-        {
+        
+        try (ServerSocket server = new ServerSocket(80)) {
             System.out.println("Aguardando conexão");
             server.setReuseAddress(true);
-            while(true)
-            {
+            while (true) {
                 Socket connection = server.accept();
                 BufferedReader in = new BufferedReader((new InputStreamReader(connection.getInputStream())));
                 PrintWriter out = new PrintWriter(connection.getOutputStream(), true);
 
                 String msg;
-                while((msg = in.readLine()) != null)
-                {
+                while ((msg = in.readLine()) != null) {
                     System.out.println(msg);
-                    switch (msg)
-                    {
+                    switch (msg) {
                         case "INSERT_FUNCIONARIO" ->
                             inserirFuncionario(in, out);
                         case "INSERT_CLIENTE" ->
@@ -48,7 +46,7 @@ public class Servidor {
                         case "DELETE_CLIENTE" ->
                             deleteCliente(in, out);
                         case "LIST_FUNCIONARIO" ->
-                            listAllFuncionario(in ,out);
+                            listAllFuncionario(in, out);
                         case "LIST_CLIENTE" ->
                             listAllCliente(in, out);
                         case "LIST_ALL" ->
@@ -81,6 +79,7 @@ public class Servidor {
 
         }
     }
+
     private static void inserirFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
         String nome = in.readLine();
@@ -89,15 +88,15 @@ public class Servidor {
         String funcao = in.readLine();
         Funcionario funcionario = new Funcionario(cpf, nome, endereco, salario, funcao);
         hotel.addFuncionario(funcionario);
-        //pessoas.add(funcionario);
+        // pessoas.add(funcionario);
         out.println("FUncionario cadastrado");
     }
+
     private static void updateFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
-        //Funcionario funcionario = getFuncionario(cpf);
+        // Funcionario funcionario = getFuncionario(cpf);
         Funcionario funcionario = hotel.getFuncionario(cpf);
-        if(funcionario != null)
-        {
+        if (funcionario != null) {
             String nome = in.readLine();
             String endereco = in.readLine();
             int salario = Integer.parseInt(in.readLine());
@@ -108,8 +107,7 @@ public class Servidor {
             funcionario.setSalario(salario);
 
             out.println("Funcionario atualizado");
-        } else
-        {
+        } else {
             out.println("Funcionario não encontrado");
         }
 
@@ -119,78 +117,74 @@ public class Servidor {
         String cpf = in.readLine();
         Funcionario funcionario = null;
         List<Pessoa> temp = hotel.getPessoas();
-        for(Pessoa pessoa : temp)
-        {
-            if(pessoa.getCpf().equals(cpf))
+        for (Pessoa pessoa : temp) {
+            if (pessoa.getCpf().equals(cpf))
                 funcionario = (Funcionario) pessoa;
         }
-        if(funcionario != null)
+        if (funcionario != null)
             out.println(funcionario.toString());
         else
             out.println("Funcionario não encontrado");
     }
 
-//    private static Funcionario getFuncionario(String cpf){
-//        Funcionario funcionario = null;
-//        for(Pessoa pessoa : pessoas)
-//        {
-//            if(pessoa.getCpf().equals(cpf) && pessoa instanceof Funcionario)
-//                funcionario = (Funcionario) pessoa;
-//        }
-//        if(funcionario != null)
-//            return funcionario;
-//        else
-//            return null;
-//    }
+    // private static Funcionario getFuncionario(String cpf){
+    // Funcionario funcionario = null;
+    // for(Pessoa pessoa : pessoas)
+    // {
+    // if(pessoa.getCpf().equals(cpf) && pessoa instanceof Funcionario)
+    // funcionario = (Funcionario) pessoa;
+    // }
+    // if(funcionario != null)
+    // return funcionario;
+    // else
+    // return null;
+    // }
 
     private static void deleteFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
 
-        //Funcionario funcionario = getFuncionario(cpf);
-        if(hotel.removeFuncionario(cpf))
-        {
-            //pessoas.remove(funcionario);
+        // Funcionario funcionario = getFuncionario(cpf);
+        if (hotel.removeFuncionario(cpf)) {
+            // pessoas.remove(funcionario);
             out.println("Funcionário removido");
-        } else
-        {
+        } else {
             out.println("Funcionário não encontrado");
         }
     }
-    private static void listAllFuncionario(BufferedReader in, PrintWriter out){
+
+    private static void listAllFuncionario(BufferedReader in, PrintWriter out) {
         List<Funcionario> temp = new ArrayList<>();
         List<Pessoa> pessoas = hotel.getPessoas();
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Funcionario)
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa instanceof Funcionario)
                 temp.add((Funcionario) pessoa);
         }
-        if(temp.isEmpty())
-        {
+        if (temp.isEmpty()) {
             out.println("Nenhum funcionário cadastrado.");
             return;
         }
         out.println(temp.size());
-        for(Funcionario funcionario : temp)
-        {
+        for (Funcionario funcionario : temp) {
             out.println(funcionario.toString());
         }
     }
+
     private static void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
         String nome = in.readLine();
         String endereco = in.readLine();
         int reserva = Integer.parseInt(in.readLine());
         Cliente cliente = new Cliente(cpf, nome, endereco, reserva);
-        //pessoas.add(cliente);
+        // pessoas.add(cliente);
         hotel.addCliente(cliente);
         out.println("Cliente cadastrado");
     }
+
     private static void updateCliente(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
-        //Cliente cliente = getCliente(cpf);
+        // Cliente cliente = getCliente(cpf);
         Cliente cliente = hotel.getCliente(cpf);
-        if(cliente != null)
-        {
+        if (cliente != null) {
             String nome = in.readLine();
             String endereco = in.readLine();
             int reserva = Integer.parseInt(in.readLine());
@@ -199,99 +193,94 @@ public class Servidor {
             cliente.setReserva(reserva);
 
             out.println("Cliente atualizado");
-        } else
-        {
+        } else {
             out.println("Cliente não encontrado");
         }
     }
+
     private static void getCliente(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
         Cliente cliente = null;
         List<Pessoa> temp = hotel.getPessoas();
-        for(Pessoa pessoa : temp)
-        {
-            if(pessoa.getCpf().equals(cpf) && pessoa instanceof Cliente)
+        for (Pessoa pessoa : temp) {
+            if (pessoa.getCpf().equals(cpf) && pessoa instanceof Cliente)
                 cliente = (Cliente) pessoa;
         }
-        if(cliente != null)
+        if (cliente != null)
             out.println(cliente.toString());
         else
             out.println("Cliente não encontrado");
     }
-//    private static Cliente getCliente(String cpf){
-//        Cliente cliente = null;
-//        for(Pessoa pessoa : pessoas)
-//        {
-//            if(pessoa.getCpf().equals(cpf))
-//                cliente = (Cliente) pessoa;
-//        }
-//        if(cliente != null)
-//            return cliente;
-//        else
-//            return null;
-//    }
+
+    // private static Cliente getCliente(String cpf){
+    // Cliente cliente = null;
+    // for(Pessoa pessoa : pessoas)
+    // {
+    // if(pessoa.getCpf().equals(cpf))
+    // cliente = (Cliente) pessoa;
+    // }
+    // if(cliente != null)
+    // return cliente;
+    // else
+    // return null;
+    // }
     private static void deleteCliente(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
 
-        //Cliente cliente = getCliente(cpf);
-        if(hotel.removeCliente(cpf))
-        {
-            //pessoas.remove(cliente);
+        // Cliente cliente = getCliente(cpf);
+        if (hotel.removeCliente(cpf)) {
+            // pessoas.remove(cliente);
             out.println("Cliente removido");
-        } else
-        {
+        } else {
             out.println("Cliente não encontrado");
         }
     }
-    private static void listAllCliente(BufferedReader in, PrintWriter out){
+
+    private static void listAllCliente(BufferedReader in, PrintWriter out) {
         List<Cliente> temp = new ArrayList<>();
         List<Pessoa> pessoas = hotel.getPessoas();
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Cliente)
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa instanceof Cliente)
                 temp.add((Cliente) pessoa);
         }
-        if(temp.isEmpty())
-        {
+        if (temp.isEmpty()) {
             out.println("Nenhum cliente cadastrado.");
             return;
         }
         out.println(temp.size());
-        for(Cliente cliente : temp)
-        {
+        for (Cliente cliente : temp) {
             out.println(cliente.toString());
         }
     }
-    private static void listAllPessoa(BufferedReader in, PrintWriter out){
+
+    private static void listAllPessoa(BufferedReader in, PrintWriter out) {
         List<Pessoa> pessoas = hotel.getPessoas();
-        if(pessoas.isEmpty())
-        {
+        if (pessoas.isEmpty()) {
             out.println("0");
             return;
         }
         out.println(pessoas.size());
-        for(Pessoa pessoa : pessoas)
-        {
+        for (Pessoa pessoa : pessoas) {
             out.println(pessoa.toString());
         }
     }
-   private static void  insertHotel(BufferedReader in, PrintWriter out) throws IOException {
+
+    private static void insertHotel(BufferedReader in, PrintWriter out) throws IOException {
         String nome = in.readLine();
         String endereco = in.readLine();
         int quartos = Integer.parseInt(in.readLine());
         int vagas = Integer.parseInt(in.readLine());
         double classificacao = Double.parseDouble(in.readLine());
-        if(hotel ==null) {
+        if (hotel == null) {
             hotel = new Hotel(nome, endereco, quartos, vagas, classificacao);
             out.println("Hotel criado");
-        }else
-        {
+        } else {
             out.println("Hotel já cadastrado");
         }
-   }
+    }
+
     private static void updateHotel(BufferedReader in, PrintWriter out) throws IOException {
-        if(hotel != null)
-        {
+        if (hotel != null) {
             String nome = in.readLine();
             String endereco = in.readLine();
             int quartos = Integer.parseInt(in.readLine());
@@ -304,25 +293,26 @@ public class Servidor {
             hotel.setClassificacao(classificacao);
 
             out.println("Hoteal atualizado");
-        } else
-        {
+        } else {
             out.println("Hotel não cadastrado");
         }
     }
-    private static void getHotel(BufferedReader in, PrintWriter out){
+
+    private static void getHotel(BufferedReader in, PrintWriter out) {
         out.println(hotel.toString());
     }
-    private static void deleteHotel(BufferedReader in, PrintWriter out){
-        if(hotel==null)
+
+    private static void deleteHotel(BufferedReader in, PrintWriter out) {
+        if (hotel == null)
             out.println("Hotel não cadastrado");
-        else
-        {
-            hotel=null;
+        else {
+            hotel = null;
             out.println("Hotel excluido");
         }
     }
-    private static void listHotel(BufferedReader in, PrintWriter out){
-        if(hotel!=null)
+
+    private static void listHotel(BufferedReader in, PrintWriter out) {
+        if (hotel != null)
             out.println(hotel.toString());
         else
             out.println("Hotel não cadastrado");
@@ -334,7 +324,6 @@ public class Servidor {
         String endereco = in.readLine();
         Pessoa pessoa = new Pessoa(cpf, nome, endereco);
         hotel.getPessoas().add(pessoa);
-        out.println("Pessoa inserida com sucesso");
     }
 
     private static void updatePessoa(BufferedReader in, PrintWriter out) throws IOException {
@@ -352,6 +341,10 @@ public class Servidor {
     }
 
     private static void getPessoa(BufferedReader in, PrintWriter out) throws IOException {
+        if (hotel.getPessoas().isEmpty()) {
+            out.println("Sem pessoas cadastradas");
+            return;
+        }
         String cpf = in.readLine();
         Pessoa pessoa = getPessoaByCpf(cpf);
         if (pessoa != null) {
@@ -362,6 +355,10 @@ public class Servidor {
     }
 
     private static void deletePessoa(BufferedReader in, PrintWriter out) throws IOException {
+        if (hotel.getPessoas().isEmpty()) {
+            out.println("Sem pessoas cadastradas");
+            return;
+        }
         String cpf = in.readLine();
         Pessoa pessoa = getPessoaByCpf(cpf);
         if (pessoa != null) {
