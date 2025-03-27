@@ -1,15 +1,14 @@
 package servidor;
 
-import model.Cliente;
-import model.Funcionario;
-import model.Hotel;
-import model.Pessoa;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import model.Cliente;
+import model.Funcionario;
+import model.Hotel;
+import model.Pessoa;
 
 public class Servidor {
 
@@ -64,6 +63,16 @@ public class Servidor {
                             deleteHotel(in, out);
                         case "LIST_HOTEL" ->
                             listHotel(in, out);
+                        case "INSERT_PESSOA" ->
+                            inserirPessoa(in, out);
+                        case "UPDATE_PESSOA" ->
+                            updatePessoa(in, out);
+                        case "GET_PESSOA" ->
+                            getPessoa(in, out);
+                        case "DELETE_PESSOA" ->
+                            deletePessoa(in, out);
+                        case "LIST_PESSOA" ->
+                            listAllPessoas(in, out);
                         default ->
                             out.println("Erro");
                     }
@@ -317,5 +326,70 @@ public class Servidor {
             out.println(hotel.toString());
         else
             out.println("Hotel não cadastrado");
+    }
+
+    private static void inserirPessoa(BufferedReader in, PrintWriter out) throws IOException {
+        String cpf = in.readLine();
+        String nome = in.readLine();
+        String endereco = in.readLine();
+        Pessoa pessoa = new Pessoa(cpf, nome, endereco);
+        hotel.getPessoas().add(pessoa);
+        out.println("Pessoa inserida com sucesso");
+    }
+
+    private static void updatePessoa(BufferedReader in, PrintWriter out) throws IOException {
+        String cpf = in.readLine();
+        Pessoa pessoa = getPessoaByCpf(cpf);
+        if (pessoa != null) {
+            String nome = in.readLine();
+            String endereco = in.readLine();
+            pessoa.setNome(nome);
+            pessoa.setEndereco(endereco);
+            out.println("Pessoa atualizada com sucesso");
+        } else {
+            out.println("Pessoa não encontrada");
+        }
+    }
+
+    private static void getPessoa(BufferedReader in, PrintWriter out) throws IOException {
+        String cpf = in.readLine();
+        Pessoa pessoa = getPessoaByCpf(cpf);
+        if (pessoa != null) {
+            out.println(pessoa.toString());
+        } else {
+            out.println("Pessoa não encontrada");
+        }
+    }
+
+    private static void deletePessoa(BufferedReader in, PrintWriter out) throws IOException {
+        String cpf = in.readLine();
+        Pessoa pessoa = getPessoaByCpf(cpf);
+        if (pessoa != null) {
+            hotel.getPessoas().remove(pessoa);
+            out.println("Pessoa removida com sucesso");
+        } else {
+            out.println("Pessoa não encontrada");
+        }
+    }
+
+    private static void listAllPessoas(BufferedReader in, PrintWriter out) {
+        List<Pessoa> pessoas = hotel.getPessoas();
+        if (pessoas.isEmpty()) {
+            out.println("0");
+            return;
+        }
+        out.println(pessoas.size());
+        for (Pessoa pessoa : pessoas) {
+            out.println(pessoa.toString());
+        }
+    }
+
+    private static Pessoa getPessoaByCpf(String cpf) {
+        for (Pessoa pessoa : hotel.getPessoas()) {
+            if (pessoa.getCpf().equals(cpf)) {
+                return pessoa;
+            }
+        }
+        return null;
     }
 }
