@@ -30,6 +30,6 @@ public class Funcionario extends Pessoa{
     public String toString() {
         return super.toString() +
                 "salario=" + salario +
-                ", funcao='" + funcao;
+                ", funcao='" + funcao + "Funcionario";
     }
 }

@@ -12,7 +12,6 @@ import model.Pessoa;
 
 public class Servidor {
 
-    // private static List<Pessoa> pessoas;
     private static Hotel hotel;
 
     public void startServer() throws IOException {
@@ -61,16 +60,6 @@ public class Servidor {
                             deleteHotel(in, out);
                         case "LIST_HOTEL" ->
                             listHotel(in, out);
-                        case "INSERT_PESSOA" ->
-                            inserirPessoa(in, out);
-                        case "UPDATE_PESSOA" ->
-                            updatePessoa(in, out);
-                        case "GET_PESSOA" ->
-                            getPessoa(in, out);
-                        case "DELETE_PESSOA" ->
-                            deletePessoa(in, out);
-                        case "LIST_PESSOA" ->
-                            listAllPessoas(in, out);
                         default ->
                             out.println("Erro");
                     }
@@ -88,7 +77,6 @@ public class Servidor {
         String funcao = in.readLine();
         Funcionario funcionario = new Funcionario(cpf, nome, endereco, salario, funcao);
         hotel.addFuncionario(funcionario);
-        // pessoas.add(funcionario);
         out.println("FUncionario cadastrado");
     }
 
@@ -126,19 +114,6 @@ public class Servidor {
         else
             out.println("Funcionario não encontrado");
     }
-
-    // private static Funcionario getFuncionario(String cpf){
-    // Funcionario funcionario = null;
-    // for(Pessoa pessoa : pessoas)
-    // {
-    // if(pessoa.getCpf().equals(cpf) && pessoa instanceof Funcionario)
-    // funcionario = (Funcionario) pessoa;
-    // }
-    // if(funcionario != null)
-    // return funcionario;
-    // else
-    // return null;
-    // }
 
     private static void deleteFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
@@ -212,18 +187,6 @@ public class Servidor {
             out.println("Cliente não encontrado");
     }
 
-    // private static Cliente getCliente(String cpf){
-    // Cliente cliente = null;
-    // for(Pessoa pessoa : pessoas)
-    // {
-    // if(pessoa.getCpf().equals(cpf))
-    // cliente = (Cliente) pessoa;
-    // }
-    // if(cliente != null)
-    // return cliente;
-    // else
-    // return null;
-    // }
     private static void deleteCliente(BufferedReader in, PrintWriter out) throws IOException {
         String cpf = in.readLine();
 
@@ -316,80 +279,5 @@ public class Servidor {
             out.println(hotel.toString());
         else
             out.println("Hotel não cadastrado");
-    }
-
-    private static void inserirPessoa(BufferedReader in, PrintWriter out) throws IOException {
-        String cpf = in.readLine();
-        String nome = in.readLine();
-        String endereco = in.readLine();
-        Pessoa pessoa = new Pessoa(cpf, nome, endereco);
-        hotel.getPessoas().add(pessoa);
-    }
-
-    private static void updatePessoa(BufferedReader in, PrintWriter out) throws IOException {
-        String cpf = in.readLine();
-        Pessoa pessoa = getPessoaByCpf(cpf);
-        if (pessoa != null) {
-            String nome = in.readLine();
-            String endereco = in.readLine();
-            pessoa.setNome(nome);
-            pessoa.setEndereco(endereco);
-            out.println("Pessoa atualizada com sucesso");
-        } else {
-            out.println("Pessoa não encontrada");
-        }
-    }
-
-    private static void getPessoa(BufferedReader in, PrintWriter out) throws IOException {
-        if (hotel.getPessoas().isEmpty()) {
-            out.println("Sem pessoas cadastradas");
-            return;
-        }
-    
-        String cpf = in.readLine(); // Read the CPF sent by the client
-    
-      
-        Pessoa pessoa = getPessoaByCpf(cpf);
-        if (pessoa != null) {
-            out.println(pessoa.getCpf() + ";" + pessoa.getNome() + ";" + pessoa.getEndereco());
-        } else {
-            out.println("Pessoa não encontrada");
-        }
-    }
-
-    private static void deletePessoa(BufferedReader in, PrintWriter out) throws IOException {
-        if (hotel.getPessoas().isEmpty()) {
-            out.println("Sem pessoas cadastradas");
-            return;
-        }
-        String cpf = in.readLine();
-        Pessoa pessoa = getPessoaByCpf(cpf);
-        if (pessoa != null) {
-            hotel.getPessoas().remove(pessoa);
-            out.println("Pessoa removida com sucesso");
-        } else {
-            out.println("Pessoa não encontrada");
-        }
-    }
-
-    private static void listAllPessoas(BufferedReader in, PrintWriter out) {
-        List<Pessoa> pessoas = hotel.getPessoas();
-        if (pessoas.isEmpty()) {
-            out.println("0");
-            return;
-        }
-        out.println(pessoas.size());
-        for (Pessoa pessoa : pessoas) {
-            out.println(pessoa.toString());
-        }
-    }
-
-    private static Pessoa getPessoaByCpf(String cpf) {
-        for (Pessoa pessoa : hotel.getPessoas()) {
-            if (pessoa.getCpf().equals(cpf)) {
-                return pessoa;
-            }
-        }
-        return null;
     }
 }
