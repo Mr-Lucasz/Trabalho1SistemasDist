@@ -62,49 +62,16 @@ public class ClientMain {
                             removeCliente(server, out, scanner);
                         case 10 ->
                             listarCLientes(server, out, scanner);
-                        case 11 -> {
-                            System.out.println("Inserir Funcionário:");
-                            System.out.print("CPF: ");
-                            String cpf = scanner.nextLine();
-                            System.out.print("Nome: ");
-                            String nome = scanner.nextLine();
-                            System.out.print("Endereço: ");
-                            String endereco = scanner.nextLine();
-                            System.out.print("Salário: ");
-                            int salario = scanner.nextInt();
-                            scanner.nextLine();
-                            System.out.print("Função: ");
-                            String funcao = scanner.nextLine();
-                            mensagem = "INSERT_FUNCIONARIO;" + cpf + ";" + nome + ";" + endereco + ";" + salario + ";" + funcao;
-                        }
-                        case 12 -> {
-                            System.out.println("Atualizar Funcionário:");
-                            System.out.print("CPF: ");
-                            String cpf = scanner.nextLine();
-                            System.out.print("Nome: ");
-                            String nome = scanner.nextLine();
-                            System.out.print("Endereço: ");
-                            String endereco = scanner.nextLine();
-                            System.out.print("Salário: ");
-                            int salario = scanner.nextInt();
-                            scanner.nextLine();
-                            System.out.print("Função: ");
-                            String funcao = scanner.nextLine();
-                            mensagem = "UPDATE_FUNCIONARIO;" + cpf + ";" + nome + ";" + endereco + ";" + salario + ";" + funcao;
-                        }
-                        case 13 -> {
-                            System.out.println("Obter Funcionário:");
-                            System.out.print("CPF: ");
-                            String cpf = scanner.nextLine();
-                            mensagem = "GET_FUNCIONARIO;" + cpf;
-                        }
-                        case 14 -> {
-                            System.out.println("Remover Funcionário:");
-                            System.out.print("CPF: ");
-                            String cpf = scanner.nextLine();
-                            mensagem = "DELETE_FUNCIONARIO;" + cpf;
-                        }
-                        case 15 -> mensagem = "LIST_FUNCIONARIO";
+                        case 11 ->
+                            insertFuncionario(server, out, scanner);
+                        case 12 ->
+                            updateFuncionario(server, out, scanner);
+                        case 13 ->
+                            getFuncionario(server, out, scanner);
+                        case 14 ->
+                            deleteFuncionario(server, out, scanner);
+                        case 15 ->
+                            listFuncionario(server, out, scanner);
                         case 16 -> {
                             System.out.println("Saindo...");
                             scanner.close();
@@ -220,6 +187,57 @@ public class ClientMain {
             System.out.println(server.readLine());
         }
     }
-
-
+    public static void insertFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("INSERT_FUNCIONARIO");
+        System.out.println("Inserir Funcionário:");
+        System.out.print("CPF: ");
+        out.println(scanner.nextLine());
+        System.out.print("Nome: ");
+        out.println(scanner.nextLine());
+        System.out.print("Endereço: ");
+        out.println(scanner.nextLine());
+        System.out.print("Salário: ");
+        out.println(scanner.nextLine());
+        System.out.print("Função: ");
+        out.println(scanner.nextLine());
+        System.out.println(server.readLine());
+    }
+    public static void updateFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("UPDATE_FUNCIONARIO");
+        System.out.println("Atualizar Funcionário:");
+        System.out.print("CPF: ");
+        out.println(scanner.nextLine());
+        System.out.print("Nome: ");
+        out.println(scanner.nextLine());
+        System.out.print("Endereço: ");
+        out.println(scanner.nextLine());
+        System.out.print("Salário: ");
+        out.println(scanner.nextLine());
+        System.out.print("Função: ");
+        out.println(scanner.nextLine());
+        System.out.println(server.readLine());
+    }
+    public static void getFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("GET_FUNCIONARIO");
+        System.out.println("Adquirir Funcionário: ");
+        System.out.print("CPF: ");
+        out.println(scanner.nextLine());
+        System.out.println(server.readLine());
+    }
+    public static void deleteFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("DELETE_FUNCIONARIO");
+        System.out.println("Remover Funcionário: ");
+        System.out.print("CPF: ");
+        out.println(scanner.nextLine());
+        System.out.println(server.readLine());
+    }
+    public static void listFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("LIST_FUNCIONARIO");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println(temp);
+        for(int i=0;i<temp; i++)
+        {
+            System.out.println(server.readLine());
+        }
+    }
 }

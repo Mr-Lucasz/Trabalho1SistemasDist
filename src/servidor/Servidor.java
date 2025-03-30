@@ -121,7 +121,7 @@ public class Servidor {
         Funcionario funcionario = null;
         List<Pessoa> temp = hotel.getPessoas();
         for (Pessoa pessoa : temp) {
-            if (pessoa.getCpf().equals(cpf))
+            if (pessoa.getCpf().equals(cpf) && pessoa instanceof Funcionario)
                 funcionario = (Funcionario) pessoa;
         }
         if (funcionario != null)
