@@ -11,9 +11,8 @@ import model.Hotel;
 import model.Pessoa;
 
 public class Servidor {
-
+    private static  List<Hotel> hoteis = new ArrayList<>();
     private static Hotel hotel;
-
     public void startServer() throws IOException {
 
         try (ServerSocket server = new ServerSocket(80)) {
@@ -21,52 +20,68 @@ public class Servidor {
             server.setReuseAddress(true);
             while (true) {
                 Socket connection = server.accept();
-                BufferedReader in = new BufferedReader((new InputStreamReader(connection.getInputStream())));
-                PrintWriter out = new PrintWriter(connection.getOutputStream(), true);
-
-                String msg;
-                while ((msg = in.readLine()) != null) {
-                    System.out.println(msg);
-                    switch (msg) {
-                        case "INSERT_FUNCIONARIO" ->
-                            inserirFuncionario(in, out);
-                        case "INSERT_CLIENTE" ->
-                            inserirCliente(in, out);
-                        case "UPDATE_FUNCIONARIO" ->
-                            updateFuncionario(in, out);
-                        case "UPDATE_CLIENTE" ->
-                            updateCliente(in, out);
-                        case "GET_FUNCIONARIO" ->
-                            getFuncionario(in, out);
-                        case "GET_CLIENTE" ->
-                            getCliente(in, out);
-                        case "DELETE_FUNCIONARIO" ->
-                            deleteFuncionario(in, out);
-                        case "DELETE_CLIENTE" ->
-                            deleteCliente(in, out);
-                        case "LIST_FUNCIONARIO" ->
-                            listAllFuncionario(in, out);
-                        case "LIST_CLIENTE" ->
-                            listAllCliente(in, out);
-                        case "LIST_ALL" ->
-                            listAllPessoa(in, out);
-                        case "INSERT_HOTEL" ->
-                            insertHotel(in, out);
-                        case "UPDATE_HOTEL" ->
-                            updateHotel(in, out);
-                        case "GET_HOTEL" ->
-                            getHotel(in, out);
-                        case "DELETE_HOTEL" ->
-                            deleteHotel(in, out);
-                        case "LIST_HOTEL" ->
-                            listHotel(in, out);
-                        default ->
-                            out.println("Erro");
-                    }
+                System.out.println("CLiente: " + connection.getInetAddress());
+                try(BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream())); PrintWriter out = new PrintWriter(connection.getOutputStream(), true)) {
+                    String msg;
+                    while ((msg = in.readLine()) != null) {
+                        System.out.println(msg);
+                        switch (msg) {
+                            case "INSERT_FUNCIONARIO" ->
+                                    inserirFuncionario(in, out);
+                            case "INSERT_CLIENTE" ->
+                                    inserirCliente(in, out);
+                            case "UPDATE_FUNCIONARIO" ->
+                                    updateFuncionario(in, out);
+                            case "UPDATE_CLIENTE" ->
+                                    updateCliente(in, out);
+                            case "GET_FUNCIONARIO" ->
+                                    getFuncionario(in, out);
+                            case "GET_CLIENTE" ->
+                                    getCliente(in, out);
+                            case "DELETE_FUNCIONARIO" ->
+                                    deleteFuncionario(in, out);
+                            case "DELETE_CLIENTE" ->
+                                    deleteCliente(in, out);
+                            case "LIST_FUNCIONARIO" ->
+                                    listAllFuncionario(in, out);
+                            case "LIST_CLIENTE" ->
+                                    listAllCliente(in, out);
+                            case "LIST_ALL" ->
+                                    listAllPessoa(in, out);
+                            case "INSERT_HOTEL" ->
+                                    insertHotel(in, out);
+                            case "UPDATE_HOTEL" ->
+                                    updateHotel(in, out);
+                            case "GET_HOTEL" ->
+                                    getHotel(in, out);
+                            case "DELETE_HOTEL" ->
+                                    deleteHotel(in, out);
+                            case "LIST_HOTEL" ->
+                                    listHotel(in, out);
+                            case "SELECT_HOTEL" ->
+                                    selectHotel(in, out);
+                            default ->
+                                    out.println("Erro");
+                        }
                 }
             }
-
         }
+    }
+}
+
+    private static void selectHotel(BufferedReader in, PrintWriter out) throws IOException {
+        int num = Integer.parseInt(in.readLine());
+        if(!hoteis.isEmpty())
+        {
+            if((num-1)>=0)
+            {
+                hotel=hoteis.get(num-1);
+                out.println("Hotel " + hotel.getNome() + " selecionado");
+            }
+            else
+                out.println("Selecione um número válido");
+        } else
+            out.println("Cadastre um hotel");
     }
 
     private static void inserirFuncionario(BufferedReader in, PrintWriter out) throws IOException {
@@ -234,12 +249,17 @@ public class Servidor {
         int quartos = Integer.parseInt(in.readLine());
         int vagas = Integer.parseInt(in.readLine());
         double classificacao = Double.parseDouble(in.readLine());
-        if (hotel == null) {
-            hotel = new Hotel(nome, endereco, quartos, vagas, classificacao);
-            out.println("Hotel criado");
-        } else {
-            out.println("Hotel já cadastrado");
-        }
+        Hotel temp = new Hotel(nome, endereco, quartos, vagas, classificacao);
+        hoteis.add(temp);
+        out.println("Hotel cadastrado");
+
+//        if (hotel == null) {
+//            hotel = new Hotel(nome, endereco, quartos, vagas, classificacao);
+//
+//            out.println("Hotel criado");
+//        } else {
+//            out.println("Hotel já cadastrado");
+//        }
     }
 
     private static void updateHotel(BufferedReader in, PrintWriter out) throws IOException {
@@ -267,17 +287,22 @@ public class Servidor {
 
     private static void deleteHotel(BufferedReader in, PrintWriter out) {
         if (hotel == null)
-            out.println("Hotel não cadastrado");
+            out.println("Hotel não selecionado");
         else {
+            hoteis.remove(hotel);
             hotel = null;
             out.println("Hotel excluido");
         }
     }
 
     private static void listHotel(BufferedReader in, PrintWriter out) {
-        if (hotel != null)
-            out.println(hotel.toString());
+        if (!hoteis.isEmpty())
+        {
+            for (Hotel h : hoteis){
+                out.println(h.toString());
+            }
+        }
         else
-            out.println("Hotel não cadastrado");
+            out.println("Hoteis não cadastrados");
     }
 }

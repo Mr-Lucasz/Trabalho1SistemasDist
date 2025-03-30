@@ -7,6 +7,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientSocket {
+
+
+    //Esse n precisa mais
+
+
+
     public String conectar(String ip, String mensagem) throws IOException {
         System.out.println("Conectando ao servidor...");
         try (Socket conn = new Socket(ip, 80)) {
