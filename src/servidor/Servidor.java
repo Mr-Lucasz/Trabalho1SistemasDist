@@ -70,6 +70,15 @@ public class Servidor {
 }
 
     private static void selectHotel(BufferedReader in, PrintWriter out) throws IOException {
+        if (!hoteis.isEmpty())
+        {
+            out.println(hoteis.size());
+            for (Hotel h : hoteis){
+                out.println(h.toString());
+            }
+        }
+        else
+            out.println("Hoteis não cadastrados");
         int num = Integer.parseInt(in.readLine());
         if(!hoteis.isEmpty())
         {
@@ -298,6 +307,7 @@ public class Servidor {
     private static void listHotel(BufferedReader in, PrintWriter out) {
         if (!hoteis.isEmpty())
         {
+            out.println(hoteis.size());
             for (Hotel h : hoteis){
                 out.println(h.toString());
             }

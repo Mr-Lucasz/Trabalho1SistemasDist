@@ -11,16 +11,17 @@ public class ClientMain {
     public static void main(String[] args) throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             Scanner scanner = new Scanner(System.in);
-            //ClientSocket clientSocket = new ClientSocket();
             String serverIp = "192.168.1.23";
+//            System.out.println("Informe o IP:");
+//            serverIp = scanner.nextLine();
 
             while (true) {
                 System.out.println("Escolha uma operação:");
-                System.out.println("1. Criar Hotel");
-                System.out.println("2. Atualizar Hotel");
-                System.out.println("3. Selecionar Hotel");
-                System.out.println("4. Informações Hotel");
-                System.out.println("5. Remover Hotel");
+                System.out.println("1. Criar Novo Hotel");
+                System.out.println("2. Atualizar Hotel Atual");
+                System.out.println("3. Escolher Hotel");
+                System.out.println("4. Informações Hotel Atual");
+                System.out.println("5. Remover Hotel Atual");
                 System.out.println("6. Inserir Cliente");
                 System.out.println("7. Atualizar Cliente");
                 System.out.println("8. Obter Cliente");
@@ -31,75 +32,75 @@ public class ClientMain {
                 System.out.println("13. Obter Funcionário");
                 System.out.println("14. Remover Funcionário");
                 System.out.println("15. Listar Funcionários");
-                System.out.println("16. Sair");
+                System.out.println("16. Listar Pessoas");
+                System.out.println("17. Sair");
                 int option = scanner.nextInt();
                 scanner.nextLine();
 
                 try (Socket conn = new Socket(serverIp, 80);
-                     PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
-                     BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-
-
-                    String mensagem = "";
+                    PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+                    BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    //checkHotel(server, out, scanner);
                     switch (option) {
                         case 1 ->
                             criarHotel(server, out, scanner);
                         case 2 ->
-                            updateHotel(server, out, scanner);
+                             updateHotel(server, out, scanner);
                         case 3 ->
-                            selectHotel(server, out, scanner);
+                             selectHotel(server, out, scanner);
                         case 4 ->
-                            getHotel(server, out, scanner);
+                             getHotel(server, out, scanner);
                         case 5 ->
-                            removeHotel(server, out, scanner);
+                             removeHotel(server, out, scanner);
                         case 6 ->
-                            insertCliente(server, out, scanner);
+                             insertCliente(server, out, scanner);
                         case 7 ->
-                            updateCliente(server, out, scanner);
+                             updateCliente(server, out, scanner);
                         case 8 ->
-                            getCliente(server, out, scanner);
+                             getCliente(server, out, scanner);
                         case 9 ->
-                            removeCliente(server, out, scanner);
+                             removeCliente(server, out, scanner);
                         case 10 ->
-                            listarCLientes(server, out, scanner);
+                             listarCLientes(server, out, scanner);
                         case 11 ->
-                            insertFuncionario(server, out, scanner);
+                             insertFuncionario(server, out, scanner);
                         case 12 ->
-                            updateFuncionario(server, out, scanner);
+                             updateFuncionario(server, out, scanner);
                         case 13 ->
-                            getFuncionario(server, out, scanner);
+                             getFuncionario(server, out, scanner);
                         case 14 ->
-                            deleteFuncionario(server, out, scanner);
+                             deleteFuncionario(server, out, scanner);
                         case 15 ->
-                            listFuncionario(server, out, scanner);
-                        case 16 -> {
+                             listFuncionario(server, out, scanner);
+                        case 16 ->
+                             listAll(server, out, scanner);
+                        case 17 -> {
                             System.out.println("Saindo...");
                             scanner.close();
+                            conn.close();
                             return;
                         }
                         default -> {
                             System.out.println("Opção inválida.");
                             continue;
                         }
-                    }
-
-//            try {
-//                String response = clientSocket.conectar(serverIp, mensagem);
-//                System.out.println("Resposta do servidor: " + response);
-//            } catch (IOException e) {
-//                System.out.println("Erro ao conectar com o servidor: " + e.getMessage());
-//            }
                 }
             }
         }
     }
+}
     private static void selectHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("SELECT_HOTEL");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println("Hotéis: ");
+        for(int i=0;i<temp; i++)
+        {
+            System.out.println((i+1) + ". " + server.readLine());
+        }
         System.out.println("Numero:");
         out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
-
     public static void criarHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_HOTEL");
         System.out.println("Criar Hotel:");
@@ -181,7 +182,7 @@ public class ClientMain {
     public static void listarCLientes(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_CLIENTE");
         int temp = Integer.parseInt(server.readLine());
-        System.out.println(temp);
+        System.out.println("CLiente(s): " + temp);
         for(int i=0;i<temp; i++)
         {
             System.out.println(server.readLine());
@@ -234,8 +235,17 @@ public class ClientMain {
     public static void listFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_FUNCIONARIO");
         int temp = Integer.parseInt(server.readLine());
-        System.out.println(temp);
+        System.out.println("Funcionário(s): "+temp);
         for(int i=0;i<temp; i++)
+        {
+            System.out.println(server.readLine());
+        }
+    }
+    public static void listAll(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("LIST_ALL");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println("Pessoas(s): "+temp);
+        for (int i=0;i<temp; i++)
         {
             System.out.println(server.readLine());
         }

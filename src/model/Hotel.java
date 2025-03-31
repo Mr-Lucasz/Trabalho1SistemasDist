@@ -111,13 +111,6 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" +
-                "nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", quartos=" + quartos +
-                ", vagas=" + vagas +
-                ", classificacao=" + classificacao +
-                ", pessoas=" + pessoas +
-                '}';
+        return "NOME: " + nome + "  ENDERECO: " + endereco + "  QUARTOS: " + quartos + "  VAGAS: " + vagas + "  CLASSIFICAÇÃO: " + classificacao;
     }
 }
