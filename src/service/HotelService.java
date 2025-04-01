@@ -1,11 +1,11 @@
-package servidor.service;
+package service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import servidor.model.Hotel;
+import model.Hotel;
 
 public class HotelService {
 
@@ -21,6 +21,7 @@ public class HotelService {
         double classificacao = Double.parseDouble(in.readLine());
         Hotel temp = new Hotel(nome, endereco, quartos, vagas, classificacao);
         hoteis.add(temp);
+        hotel = temp;
         out.println("Hotel cadastrado");
     }
 
@@ -88,5 +89,10 @@ public class HotelService {
             out.println("Cadastre um hotel");
         }
     }
+
+    public static Hotel getSelectedHotel() {
+        return hotel;
+    }
+
 
 }

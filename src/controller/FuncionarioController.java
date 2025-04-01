@@ -1,9 +1,9 @@
-package servidor.controller;
+package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import servidor.service.FuncionarioService;
+import service.FuncionarioService;
 
 public class FuncionarioController {
 

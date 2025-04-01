@@ -1,4 +1,4 @@
-package servidor.model;
+package model;
 
 public class Cliente extends Pessoa {
     private int reserva;

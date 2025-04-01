@@ -1,10 +1,9 @@
-package servidor.controller;
+package controller;
 
-import servidor.service.HotelService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import service.HotelService;
 
 public class HotelController {
 

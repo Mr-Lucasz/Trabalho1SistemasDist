@@ -5,24 +5,42 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import servidor.model.Cliente;
-import servidor.model.Hotel;
-import servidor.model.Pessoa;
+import model.Cliente;
+import model.Hotel;
+import model.Pessoa;
 
 public class ClienteService {
     private static Hotel hotel;
 
     public void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
+        hotel = HotelService.getSelectedHotel(); // Atualiza o hotel primeiro
+        if (hotel == null) {
+            out.println("Erro: Nenhum hotel selecionado.");
+            return;
+        }
         String cpf = in.readLine();
         String nome = in.readLine();
         String endereco = in.readLine();
-        int reserva = Integer.parseInt(in.readLine());
+        String reservaStr = in.readLine();
+    
+        int reserva;
+        try {
+            reserva = Integer.parseInt(reservaStr);
+        } catch (NumberFormatException e) {
+            out.println("Erro: O campo 'reserva' deve ser um número inteiro.");
+            return;
+        }
         Cliente cliente = new Cliente(cpf, nome, endereco, reserva);
-        hotel.getPessoas().add(cliente); // Adiciona diretamente à lista de pessoas
+        hotel.getPessoas().add(cliente);
         out.println("Cliente cadastrado");
     }
-
+    
     public void updateCliente(BufferedReader in, PrintWriter out) throws IOException {
+        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
+        if (hotel == null) {
+            out.println("Erro: Nenhum hotel selecionado.");
+            return;
+        }
         String cpf = in.readLine();
         Cliente cliente = findClienteByCpf(cpf);
         if (cliente != null) {
@@ -39,6 +57,11 @@ public class ClienteService {
     }
 
     public void getCliente(BufferedReader in, PrintWriter out) throws IOException {
+        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
+        if (hotel == null) {
+            out.println("Erro: Nenhum hotel selecionado.");
+            return;
+        }
         String cpf = in.readLine();
         Cliente cliente = findClienteByCpf(cpf);
         if (cliente != null) {
@@ -49,6 +72,11 @@ public class ClienteService {
     }
 
     public void deleteCliente(BufferedReader in, PrintWriter out) throws IOException {
+        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
+        if (hotel == null) {
+            out.println("Erro: Nenhum hotel selecionado.");
+            return;
+        }
         String cpf = in.readLine();
         Cliente cliente = findClienteByCpf(cpf);
         if (cliente != null) {
@@ -60,6 +88,11 @@ public class ClienteService {
     }
 
     public void listAllCliente(PrintWriter out) {
+        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
+        if (hotel == null) {
+            out.println("Erro: Nenhum hotel selecionado.");
+            return;
+        }
         List<Cliente> clientes = new ArrayList<>();
         for (Pessoa pessoa : hotel.getPessoas()) {
             if (pessoa instanceof Cliente) {
