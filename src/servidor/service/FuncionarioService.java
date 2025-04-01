@@ -1,13 +1,13 @@
-package service;
+package servidor.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import model.Funcionario;
-import model.Hotel;
-import model.Pessoa;
+import servidor.model.Funcionario;
+import servidor.model.Hotel;
+import servidor.model.Pessoa;
 
 public class FuncionarioService {
 

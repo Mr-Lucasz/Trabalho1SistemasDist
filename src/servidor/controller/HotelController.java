@@ -1,7 +1,6 @@
-package controller;
+package servidor.controller;
 
-import model.Hotel;
-import service.HotelService;
+import servidor.service.HotelService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;

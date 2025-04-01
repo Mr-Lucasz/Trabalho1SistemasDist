@@ -1,6 +1,6 @@
 package servidor;
 
-import controller.*;
+import servidor.controller.*;
 
 import java.io.*;
 import java.net.ServerSocket;

@@ -1,6 +1,6 @@
-package service;
+package servidor.service;
 
-import model.Hotel;
+import servidor.model.Hotel;
 
 import java.io.BufferedReader;
 import java.io.IOException;

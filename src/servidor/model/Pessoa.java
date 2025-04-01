@@ -1,4 +1,4 @@
-package model;
+package servidor.model;
 
 public class Pessoa {
     private String cpf;

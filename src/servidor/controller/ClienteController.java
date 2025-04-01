@@ -1,10 +1,9 @@
-package controller;
-
-import service.ClienteService;
+package servidor.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import service.ClienteService;
 
 public class ClienteController {
     private final ClienteService clienteService = new ClienteService();
