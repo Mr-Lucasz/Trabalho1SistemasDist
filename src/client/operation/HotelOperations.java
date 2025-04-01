@@ -9,26 +9,37 @@ import java.util.Scanner;
 
 public class HotelOperations {
 
-    public static void criarHotel(String serverIp, int serverPort, Scanner scanner) throws IOException {
-        System.out.println("Tentando conectar ao servidor em " + serverIp + ":" + serverPort);
-        try (Socket conn = new Socket(serverIp, serverPort);
-             PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
-             BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-            out.println("INSERT_HOTEL");
-            System.out.println("Criar Hotel:");
-            System.out.print("Nome: ");
-            out.println(scanner.nextLine());
-            System.out.print("Endereco: ");
-            out.println(scanner.nextLine());
-            System.out.print("Quartos: ");
-            out.println(scanner.nextLine());
-            System.out.print("Vagas: ");
-            out.println(scanner.nextLine());
-            System.out.print("Classificação: ");
-            out.println(scanner.nextLine());
-            System.out.println(server.readLine());
-        }
+public static void criarHotel(String serverIp, int serverPort, Scanner scanner) throws IOException {
+    System.out.println("Tentando conectar ao servidor em " + serverIp + ":" + serverPort);
+    try (Socket conn = new Socket(serverIp, serverPort);
+         PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+         BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+        out.println("INSERT_HOTEL");
+        System.out.println("Criar Hotel:");
+
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        out.println(nome);
+
+        System.out.print("Endereco: ");
+        String endereco = scanner.nextLine();
+        out.println(endereco);
+
+        System.out.print("Quartos: ");
+        String quartos = scanner.nextLine();
+        out.println(quartos);
+
+        System.out.print("Vagas: ");
+        String vagas = scanner.nextLine();
+        out.println(vagas);
+
+        System.out.print("Classificação: ");
+        String classificacao = scanner.nextLine();
+        out.println(classificacao);
+
+        System.out.println(server.readLine());
     }
+}
     
     public static void updateHotel(String serverIp, int serverPort, Scanner scanner) throws IOException {
         try (Socket conn = new Socket(serverIp, serverPort);

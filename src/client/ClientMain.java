@@ -41,7 +41,9 @@ public class ClientMain {
         System.out.println("15. Listar Funcionários");
         System.out.println("16. Listar Pessoas");
         System.out.println("17. Sair");
-        return scanner.nextInt();
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        return option;
     }
 
     private static void handleUserOption(int option, Scanner scanner) {

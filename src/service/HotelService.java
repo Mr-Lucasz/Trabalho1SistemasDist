@@ -21,6 +21,7 @@ public class HotelService {
         double classificacao = Double.parseDouble(in.readLine());
         Hotel temp = new Hotel(nome, endereco, quartos, vagas, classificacao);
         hoteis.add(temp);
+        hotel = temp;
         out.println("Hotel cadastrado");
     }
 
