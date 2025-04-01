@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import servidor.model.Cliente;
-import servidor.model.Hotel;
-import servidor.model.Pessoa;
+import model.Cliente;
+import model.Hotel;
+import model.Pessoa;
 
 public class ClienteService {
     private static Hotel hotel;

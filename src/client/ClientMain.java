@@ -1,17 +1,17 @@
 package client;
 
 import client.operation.*;
-
 import java.io.IOException;
 import java.util.Scanner;
 
 public class ClientMain {
-    private static final String SERVER_IP = "192.168.1.23";
-    private static final int SERVER_PORT = 80;
+    private static final String SERVER_IP = "127.0.0.1";
+    private static final int SERVER_PORT = 8080;
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
+                System.out.println("Conectando ao servidor em " + SERVER_IP + ":" + SERVER_PORT);
                 int option = getUserOption(scanner);
                 if (option == 17) {
                     System.out.println("Saindo...");

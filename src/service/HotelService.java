@@ -1,11 +1,11 @@
-package servidor.service;
+package service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import servidor.model.Hotel;
+import model.Hotel;
 
 public class HotelService {
 

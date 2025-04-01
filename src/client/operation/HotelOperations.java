@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class HotelOperations {
 
     public static void criarHotel(String serverIp, int serverPort, Scanner scanner) throws IOException {
+        System.out.println("Tentando conectar ao servidor em " + serverIp + ":" + serverPort);
         try (Socket conn = new Socket(serverIp, serverPort);
              PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
              BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
@@ -28,7 +29,7 @@ public class HotelOperations {
             System.out.println(server.readLine());
         }
     }
-
+    
     public static void updateHotel(String serverIp, int serverPort, Scanner scanner) throws IOException {
         try (Socket conn = new Socket(serverIp, serverPort);
              PrintWriter out = new PrintWriter(conn.getOutputStream(), true);

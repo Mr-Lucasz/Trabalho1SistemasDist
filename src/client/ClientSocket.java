@@ -8,26 +8,14 @@ import java.net.Socket;
 
 public class ClientSocket {
 
-
-    //Esse n precisa mais
-
-
-
     public String conectar(String ip, String mensagem) throws IOException {
         System.out.println("Conectando ao servidor...");
-        try (Socket conn = new Socket(ip, 80)) {
+        try (Socket conn = new Socket(ip, 8080)) { // Alterado para 8080
             System.out.println("Conectado ao servidor.");
             PrintWriter out = new PrintWriter(conn.getOutputStream(), true); 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
             // Send msg to server
             out.println(mensagem);
-
-            // Check if the operation expects a response
-            if (mensagem.startsWith("INSERT_PESSOA")) {
-                return ""; // No response expected for INSERT_PESSOA
-            }
-
             // Receive response
             StringBuilder resposta = new StringBuilder();
             String linha;
