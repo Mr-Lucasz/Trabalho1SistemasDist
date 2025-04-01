@@ -18,10 +18,10 @@ public class ClientMain {
                     System.out.println("Saindo...");
                     break;
                 }
-                if (option == 3) { // Escolher Hotel
+                if (option == 3) { 
                     try {
                         HotelOperations.selectHotel(SERVER_IP, SERVER_PORT, scanner);
-                        isHotelSelected = true; // Atualiza o estado após selecionar um hotel
+                        isHotelSelected = true; 
                     } catch (IOException e) {
                         System.out.println("Erro ao selecionar o hotel: " + e.getMessage());
                     }
