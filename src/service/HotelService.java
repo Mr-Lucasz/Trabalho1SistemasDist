@@ -90,4 +90,9 @@ public class HotelService {
         }
     }
 
+    public static Hotel getSelectedHotel() {
+        return hotel;
+    }
+
+
 }
