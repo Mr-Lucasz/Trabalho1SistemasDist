@@ -1,4 +1,4 @@
-package model;
+package servidor.model;
 
 public class Funcionario extends Pessoa{
     private int salario;
