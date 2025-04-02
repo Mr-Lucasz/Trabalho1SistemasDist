@@ -36,44 +36,26 @@ public class ClientMain {
                 System.out.println("17. Sair");
                 int option = scanner.nextInt();
                 scanner.nextLine();
-
-                try (Socket conn = new Socket(serverIp, 80);
-                    PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+                Socket conn = new Socket(serverIp, 80);
+                try (PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
                     BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                    //checkHotel(server, out, scanner);
                     switch (option) {
-                        case 1 ->
-                            criarHotel(server, out, scanner);
-                        case 2 ->
-                             updateHotel(server, out, scanner);
-                        case 3 ->
-                             selectHotel(server, out, scanner);
-                        case 4 ->
-                             getHotel(server, out, scanner);
-                        case 5 ->
-                             removeHotel(server, out, scanner);
-                        case 6 ->
-                             insertCliente(server, out, scanner);
-                        case 7 ->
-                             updateCliente(server, out, scanner);
-                        case 8 ->
-                             getCliente(server, out, scanner);
-                        case 9 ->
-                             removeCliente(server, out, scanner);
-                        case 10 ->
-                             listarCLientes(server, out, scanner);
-                        case 11 ->
-                             insertFuncionario(server, out, scanner);
-                        case 12 ->
-                             updateFuncionario(server, out, scanner);
-                        case 13 ->
-                             getFuncionario(server, out, scanner);
-                        case 14 ->
-                             deleteFuncionario(server, out, scanner);
-                        case 15 ->
-                             listFuncionario(server, out, scanner);
-                        case 16 ->
-                             listAll(server, out, scanner);
+                        case 1 -> criarHotel(server, out, scanner);
+                        case 2 -> updateHotel(server, out, scanner);
+                        case 3 -> selectHotel(server, out, scanner);
+                        case 4 -> getHotel(server, out, scanner);
+                        case 5 -> removeHotel(server, out, scanner);
+                        case 6 -> insertCliente(server, out, scanner);
+                        case 7 -> updateCliente(server, out, scanner);
+                        case 8 -> getCliente(server, out, scanner);
+                        case 9 -> removeCliente(server, out, scanner);
+                        case 10 -> listarCLientes(server, out, scanner);
+                        case 11 -> insertFuncionario(server, out, scanner);
+                        case 12 -> updateFuncionario(server, out, scanner);
+                        case 13 -> getFuncionario(server, out, scanner);
+                        case 14 -> deleteFuncionario(server, out, scanner);
+                        case 15 -> listFuncionario(server, out, scanner);
+                        case 16 -> listAll(server, out, scanner);
                         case 17 -> {
                             System.out.println("Saindo...");
                             scanner.close();
@@ -84,8 +66,9 @@ public class ClientMain {
                             System.out.println("Opção inválida.");
                             continue;
                         }
+                    }
+                    conn.close();
                 }
-            }
         }
     }
 }
@@ -142,6 +125,8 @@ public class ClientMain {
     public static void insertCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_CLIENTE");
         System.out.println("Inserir Cliente:");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
         System.out.print("Nome: ");

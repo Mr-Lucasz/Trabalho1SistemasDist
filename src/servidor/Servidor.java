@@ -169,13 +169,15 @@ public class Servidor {
     }
 
     private static void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
+        int temp = Integer.parseInt(in.readLine());
+        Hotel hotelT= hoteis.get(temp-1);
         String cpf = in.readLine();
         String nome = in.readLine();
         String endereco = in.readLine();
         int reserva = Integer.parseInt(in.readLine());
         Cliente cliente = new Cliente(cpf, nome, endereco, reserva);
         // pessoas.add(cliente);
-        hotel.addCliente(cliente);
+        hotelT.addCliente(cliente);
         out.println("Cliente cadastrado");
     }
 
