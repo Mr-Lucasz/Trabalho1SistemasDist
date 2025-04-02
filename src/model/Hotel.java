@@ -71,26 +71,70 @@ public class Hotel {
     public void addCliente(Cliente cliente){
         pessoas.add(cliente);
     }
-    public boolean removeCliente(String cpf){
-        Cliente cliente = getCliente(cpf);
-        if(cliente != null)
+    public String removeCliente(String cpf){
+        int count = 0;
+        for(Pessoa pessoa : pessoas)
         {
-            pessoas.remove(cliente);
-            return true;
-        }else
-            return false;
+            if(pessoa instanceof Cliente)
+            {
+                count++;
+                if(pessoa.getCpf().equals(cpf))
+                {
+                    pessoas.remove(pessoa);
+                    return "Cliente removido com sucesso";
+                }
+            }
+        }
+        if(count==0)
+            return "Sem clientes cadastrados";
+        else
+            return "Cliente não encontrado";
+    }
+    public String getStringCLiente(String cpf){
+        int count = 0;
+        for(Pessoa pessoa : pessoas)
+        {
+            if(pessoa instanceof Cliente)
+            {
+                count++;
+                if(pessoa.getCpf().equals(cpf))
+                    return pessoa.toString();
+            }
+        }
+        if(count==0)
+            return "Sem clientes cadastrados";
+        else
+            return "Cliente não encontrado";
+    }
+    public Cliente getCliente(String cpf) {
+        for (Pessoa pessoa : pessoas)
+        {
+            if (pessoa.getCpf().equals(cpf) && pessoa instanceof Cliente)
+                return (Cliente) pessoa;
+        }
+        return null;
     }
     public void addFuncionario(Funcionario funcionario){
         pessoas.add(funcionario);
     }
-    public boolean removeFuncionario(String cpf){
-        Funcionario funcionario = getFuncionario(cpf);
-        if(funcionario != null)
+    public String removeFuncionario(String cpf){
+        int count = 0;
+        for(Pessoa pessoa : pessoas)
         {
-            pessoas.remove(funcionario);
-            return true;
-        }else
-            return false;
+            if(pessoa instanceof Funcionario)
+            {
+                count++;
+                if(pessoa.getCpf().equals(cpf))
+                {
+                    pessoas.remove(pessoa);
+                    return "Funcionário removido com sucesso";
+                }
+            }
+        }
+        if(count==0)
+            return "Sem funcionários cadastrados";
+        else
+            return "Funcionário não encontrado";
     }
     public Funcionario getFuncionario(String cpf) {
         for (Pessoa pessoa : pessoas)
@@ -100,13 +144,21 @@ public class Hotel {
         }
         return null;
     }
-    public Cliente getCliente(String cpf) {
-        for (Pessoa pessoa : pessoas)
+    public String getStringFuncionario(String cpf){
+        int count = 0;
+        for(Pessoa pessoa : pessoas)
         {
-            if (pessoa.getCpf().equals(cpf) && pessoa instanceof Cliente)
-                return (Cliente) pessoa;
+            if(pessoa instanceof Funcionario)
+            {
+                count++;
+                if(pessoa.getCpf().equals(cpf))
+                    return pessoa.toString();
+            }
         }
-        return null;
+        if(count==0)
+            return "Sem funcionários cadastrados";
+        else
+            return "Funcionário não encontrado";
     }
 
     @Override

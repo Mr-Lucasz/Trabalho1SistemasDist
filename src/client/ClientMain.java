@@ -21,7 +21,7 @@ public class ClientMain {
                 System.out.println("2. Atualizar Hotel");
                 System.out.println("3. Listar Hotéis");
                 System.out.println("4. Obter Hotel");
-                System.out.println("5. Remover Hotel Atual");
+                System.out.println("5. Remover Hotel");
                 System.out.println("6. Inserir Cliente");
                 System.out.println("7. Atualizar Cliente");
                 System.out.println("8. Obter Cliente");
@@ -72,27 +72,6 @@ public class ClientMain {
         }
     }
 }
-    private static void listHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
-        out.println("LIST_HOTEL");
-        int temp = Integer.parseInt(server.readLine());
-        System.out.println(temp);
-        for(int i=0;i<temp; i++)
-        {
-            System.out.println(server.readLine());
-        }
-    }
-    private static void selectHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
-        out.println("SELECT_HOTEL");
-        int temp = Integer.parseInt(server.readLine());
-        System.out.println("Hotéis: ");
-        for(int i=0;i<temp; i++)
-        {
-            System.out.println((i+1) + ". " + server.readLine());
-        }
-        System.out.println("Numero:");
-        out.println(scanner.nextLine());
-        System.out.println(server.readLine());
-    }
     public static void criarHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_HOTEL");
         System.out.println("Criar Hotel:");
@@ -137,12 +116,49 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
+    private static void listHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("LIST_HOTEL");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println(temp);
+        if(temp!=0)
+            for(int i=0;i<temp; i++)
+            {
+                System.out.println(server.readLine());
+            }
+    }
+    private static void selectHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("SELECT_HOTEL");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println("Hotéis: ");
+        for(int i=0;i<temp; i++)
+        {
+            System.out.println((i+1) + ". " + server.readLine());
+        }
+        System.out.println("Numero:");
+        out.println(scanner.nextLine());
+        System.out.println(server.readLine());
+    }
     public static void insertCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_CLIENTE");
         System.out.println("Inserir Cliente:");
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
         System.out.print("CPF: ");
+        out.println(scanner.nextLine());
+        System.out.print("Nome: ");
+        out.println(scanner.nextLine());
+        System.out.print("Endereço: ");
+        out.println(scanner.nextLine());
+        System.out.print("Reserva: ");
+        out.println(scanner.nextLine());
+        //System.out.println(server.readLine());
+    }
+    public static void updateCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("UPDATE_CLIENTE");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
+        System.out.println("Atualizar Cliente:");
+        System.out.print("CPF do Cliente: ");
         out.println(scanner.nextLine());
         System.out.print("Nome: ");
         out.println(scanner.nextLine());
@@ -161,21 +177,6 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
-    public static void updateCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
-        out.println("UPDATE_CLIENTE");
-        System.out.print("NUM. HOTEL: ");
-        out.println(scanner.nextLine());
-        System.out.println("Atualizar Cliente:");
-        System.out.print("CPF: ");
-        out.println(scanner.nextLine());
-        System.out.print("Nome: ");
-        out.println(scanner.nextLine());
-        System.out.print("Endereço: ");
-        out.println(scanner.nextLine());
-        System.out.print("Reserva: ");
-        out.println(scanner.nextLine());
-        System.out.println(server.readLine());
-    }
     public static void removeCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_CLIENTE");
         System.out.print("NUM. HOTEL: ");
@@ -190,7 +191,7 @@ public class ClientMain {
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
-        System.out.println("CLiente(s): " + temp);
+        System.out.println(temp);
         for(int i=0;i<temp; i++)
         {
             System.out.println(server.readLine());
@@ -211,7 +212,7 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.print("Função: ");
         out.println(scanner.nextLine());
-        System.out.println(server.readLine());
+        //System.out.println(server.readLine());
     }
     public static void updateFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_FUNCIONARIO");
@@ -253,7 +254,7 @@ public class ClientMain {
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
-        System.out.println("Funcionário(s): "+temp);
+        System.out.println(temp);
         for(int i=0;i<temp; i++)
         {
             System.out.println(server.readLine());
@@ -264,7 +265,7 @@ public class ClientMain {
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
-        System.out.println("Pessoas(s): "+temp);
+        System.out.println(temp);
         for (int i=0;i<temp; i++)
         {
             System.out.println(server.readLine());
