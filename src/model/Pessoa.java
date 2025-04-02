@@ -19,6 +19,6 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "CPF: " + cpf + "  NOME: " + nome + "  ENDERECO: " + endereco;
+        return cpf + ";" + nome + ";" + endereco;
     }
 }

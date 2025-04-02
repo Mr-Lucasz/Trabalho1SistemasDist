@@ -29,7 +29,7 @@ public class Funcionario extends Pessoa{
     @Override
     public String toString() {
         return super.toString() +
-                "  SALARIO: R$" + salario +
-                ",00  FUNÇÃO: " + funcao + "  FUNCIONARIO";
+                ";" + salario +
+                ";" + funcao + ";FUNCIONARIO";
     }
 }

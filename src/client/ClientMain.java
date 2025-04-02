@@ -30,7 +30,6 @@ public class ClientMain {
                 } else {
                     handleUserOption(option, scanner);
                 }
-            }
         }
     }
 
@@ -41,7 +40,7 @@ public class ClientMain {
         System.out.println("3. Escolher Hotel");
         System.out.println("4. Informações Hotel Atual");
         System.out.println("5. Remover Hotel Atual");
-    
+
         if (isHotelSelected) {
             System.out.println("6. Inserir Cliente");
             System.out.println("7. Atualizar Cliente");
@@ -57,7 +56,7 @@ public class ClientMain {
         } else {
             System.out.println("6-16. [Indisponível até selecionar um hotel]");
         }
-    
+
         System.out.println("17. Sair");
         int option = scanner.nextInt();
         scanner.nextLine();
@@ -88,5 +87,17 @@ public class ClientMain {
         } catch (IOException e) {
             System.err.println("Erro de comunicação com o servidor: " + e.getMessage());
         }
+    }
+
+    public static boolean checkHotel(String str) {
+        if (str.equals("0")) {
+            System.out.println("Sem hotéis cadastrados");
+            return false;
+        }
+        if (str.equals("1")) {
+            System.out.println("Hotel não encontrado");
+            return false;
+        }
+        return true;
     }
 }
