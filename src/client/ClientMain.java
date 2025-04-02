@@ -18,9 +18,9 @@ public class ClientMain {
             while (true) {
                 System.out.println("Escolha uma operação:");
                 System.out.println("1. Criar Novo Hotel");
-                System.out.println("2. Atualizar Hotel Atual");
-                System.out.println("3. Escolher Hotel");
-                System.out.println("4. Informações Hotel Atual");
+                System.out.println("2. Atualizar Hotel");
+                System.out.println("3. Listar Hotéis");
+                System.out.println("4. Obter Hotel");
                 System.out.println("5. Remover Hotel Atual");
                 System.out.println("6. Inserir Cliente");
                 System.out.println("7. Atualizar Cliente");
@@ -42,7 +42,7 @@ public class ClientMain {
                     switch (option) {
                         case 1 -> criarHotel(server, out, scanner);
                         case 2 -> updateHotel(server, out, scanner);
-                        case 3 -> selectHotel(server, out, scanner);
+                        case 3 -> listHotel(server, out, scanner);
                         case 4 -> getHotel(server, out, scanner);
                         case 5 -> removeHotel(server, out, scanner);
                         case 6 -> insertCliente(server, out, scanner);
@@ -72,6 +72,15 @@ public class ClientMain {
         }
     }
 }
+    private static void listHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+        out.println("LIST_HOTEL");
+        int temp = Integer.parseInt(server.readLine());
+        System.out.println(temp);
+        for(int i=0;i<temp; i++)
+        {
+            System.out.println(server.readLine());
+        }
+    }
     private static void selectHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("SELECT_HOTEL");
         int temp = Integer.parseInt(server.readLine());
@@ -97,11 +106,13 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.print("Classificação: ");
         out.println(scanner.nextLine());
-        System.out.println(server.readLine());
+        //System.out.println(server.readLine());
     }
     public static void updateHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_HOTEL");
         System.out.println("Atualizar Hotel:");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.print("Nome: ");
         out.println(scanner.nextLine());
         System.out.print("Endereco: ");
@@ -116,10 +127,14 @@ public class ClientMain {
     }
     public static  void getHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("GET_HOTEL");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
     public static void removeHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_HOTEL");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
     public static void insertCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
@@ -139,6 +154,8 @@ public class ClientMain {
     }
     public static  void getCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("GET_CLIENTE");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Obter Cliente:");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -146,6 +163,8 @@ public class ClientMain {
     }
     public static void updateCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_CLIENTE");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Atualizar Cliente:");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -159,6 +178,8 @@ public class ClientMain {
     }
     public static void removeCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_CLIENTE");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Remover Cliente:");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -166,6 +187,8 @@ public class ClientMain {
     }
     public static void listarCLientes(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_CLIENTE");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
         System.out.println("CLiente(s): " + temp);
         for(int i=0;i<temp; i++)
@@ -175,6 +198,8 @@ public class ClientMain {
     }
     public static void insertFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_FUNCIONARIO");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Inserir Funcionário:");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -190,6 +215,8 @@ public class ClientMain {
     }
     public static void updateFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_FUNCIONARIO");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Atualizar Funcionário:");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -205,6 +232,8 @@ public class ClientMain {
     }
     public static void getFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("GET_FUNCIONARIO");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Adquirir Funcionário: ");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -212,6 +241,8 @@ public class ClientMain {
     }
     public static void deleteFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_FUNCIONARIO");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         System.out.println("Remover Funcionário: ");
         System.out.print("CPF: ");
         out.println(scanner.nextLine());
@@ -219,6 +250,8 @@ public class ClientMain {
     }
     public static void listFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_FUNCIONARIO");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
         System.out.println("Funcionário(s): "+temp);
         for(int i=0;i<temp; i++)
@@ -228,6 +261,8 @@ public class ClientMain {
     }
     public static void listAll(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_ALL");
+        System.out.print("NUM. HOTEL: ");
+        out.println(scanner.nextLine());
         int temp = Integer.parseInt(server.readLine());
         System.out.println("Pessoas(s): "+temp);
         for (int i=0;i<temp; i++)
