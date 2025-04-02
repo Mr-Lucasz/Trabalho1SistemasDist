@@ -12,8 +12,8 @@ public class ClientMain {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             Scanner scanner = new Scanner(System.in);
             String serverIp = "192.168.1.23";
-//            System.out.println("Informe o IP:");
-//            serverIp = scanner.nextLine();
+            System.out.println("Informe o IP:");
+            serverIp = scanner.nextLine();
 
             while (true) {
                 System.out.println("Escolha uma operação:");
