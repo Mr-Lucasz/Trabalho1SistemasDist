@@ -30,6 +30,7 @@ public class ClientMain {
                 } else {
                     handleUserOption(option, scanner);
                 }
+            }
         }
     }
 
