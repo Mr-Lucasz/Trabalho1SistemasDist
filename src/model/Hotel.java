@@ -68,94 +68,82 @@ public class Hotel {
         this.pessoas = pessoas;
     }
 
-    public void addCliente(Cliente cliente){
-        pessoas.add(cliente);
-    }
-    public String removeCliente(String cpf){
+    public String removePessoa(String cpf, String tipo) {
         int count = 0;
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Cliente)
-            {
+        for (Pessoa pessoa : pessoas) {
+            if (tipo.equalsIgnoreCase("Cliente") && pessoa instanceof Cliente ||
+                    tipo.equalsIgnoreCase("Funcionario") && pessoa instanceof Funcionario) {
                 count++;
-                if(pessoa.getCpf().equals(cpf))
-                {
+                if (pessoa.getCpf().equals(cpf)) {
                     pessoas.remove(pessoa);
-                    return "Cliente removido com sucesso";
+                    return tipo + " removido com sucesso";
                 }
             }
         }
-        if(count==0)
-            return "Sem clientes cadastrados";
-        else
-            return "Cliente não encontrado";
+        if (count == 0) {
+            return "Sem " + tipo.toLowerCase() + "s cadastrados";
+        } else {
+            return tipo + " não encontrado";
+        }
     }
-    public String getStringCLiente(String cpf){
+
+    public void addCliente(Cliente cliente) {
+        pessoas.add(cliente);
+    }
+
+    public String removeCliente(String cpf) {
+        return removePessoa(cpf, "Cliente");
+    }
+
+    public String getStringCLiente(String cpf) {
         int count = 0;
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Cliente)
-            {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa instanceof Cliente) {
                 count++;
-                if(pessoa.getCpf().equals(cpf))
+                if (pessoa.getCpf().equals(cpf))
                     return pessoa.toString();
             }
         }
-        if(count==0)
+        if (count == 0)
             return "Sem clientes cadastrados";
         else
             return "Cliente não encontrado";
     }
+
     public Cliente getCliente(String cpf) {
-        for (Pessoa pessoa : pessoas)
-        {
+        for (Pessoa pessoa : pessoas) {
             if (pessoa.getCpf().equals(cpf) && pessoa instanceof Cliente)
                 return (Cliente) pessoa;
         }
         return null;
     }
-    public void addFuncionario(Funcionario funcionario){
+
+    public void addFuncionario(Funcionario funcionario) {
         pessoas.add(funcionario);
     }
-    public String removeFuncionario(String cpf){
-        int count = 0;
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Funcionario)
-            {
-                count++;
-                if(pessoa.getCpf().equals(cpf))
-                {
-                    pessoas.remove(pessoa);
-                    return "Funcionário removido com sucesso";
-                }
-            }
-        }
-        if(count==0)
-            return "Sem funcionários cadastrados";
-        else
-            return "Funcionário não encontrado";
+
+    public String removeFuncionario(String cpf) {
+        return removePessoa(cpf, "Funcionario");
     }
+
     public Funcionario getFuncionario(String cpf) {
-        for (Pessoa pessoa : pessoas)
-        {
+        for (Pessoa pessoa : pessoas) {
             if (pessoa.getCpf().equals(cpf) && pessoa instanceof Funcionario)
                 return (Funcionario) pessoa;
         }
         return null;
     }
-    public String getStringFuncionario(String cpf){
+
+    public String getStringFuncionario(String cpf) {
         int count = 0;
-        for(Pessoa pessoa : pessoas)
-        {
-            if(pessoa instanceof Funcionario)
-            {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa instanceof Funcionario) {
                 count++;
-                if(pessoa.getCpf().equals(cpf))
+                if (pessoa.getCpf().equals(cpf))
                     return pessoa.toString();
             }
         }
-        if(count==0)
+        if (count == 0)
             return "Sem funcionários cadastrados";
         else
             return "Funcionário não encontrado";
