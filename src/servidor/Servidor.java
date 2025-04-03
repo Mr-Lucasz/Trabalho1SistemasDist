@@ -25,20 +25,24 @@ public class Servidor {
                         PrintWriter out = new PrintWriter(connection.getOutputStream(), true)) {
                     String msg;
                     while ((msg = in.readLine()) != null) {
-                        System.out.println("Ação recebida: " + msg);
-                        if (msg.startsWith("INSERT_") || msg.startsWith("UPDATE_") || msg.startsWith("GET_")
-                                || msg.startsWith("DELETE_") || msg.startsWith("LIST_")) {
-                            if (msg.contains("CLIENTE")) {
-                                clienteController.handleRequest(msg, in, out);
-                            } else if (msg.contains("FUNCIONARIO")) {
-                                funcionarioController.handleRequest(msg, in, out);
-                            } else if (msg.contains("HOTEL")) {
-                                hotelController.handleRequest(msg, in, out);
+                        try {
+                            System.out.println("Ação recebida: " + msg);
+                            if (msg.startsWith("INSERT_") || msg.startsWith("UPDATE_") || msg.startsWith("GET_")
+                                    || msg.startsWith("DELETE_") || msg.startsWith("LIST_")) {
+                                if (msg.contains("CLIENTE")) {
+                                    clienteController.handleRequest(msg, in, out);
+                                } else if (msg.contains("FUNCIONARIO")) {
+                                    funcionarioController.handleRequest(msg, in, out);
+                                } else if (msg.contains("HOTEL")) {
+                                    hotelController.handleRequest(msg, in, out);
+                                } else {
+                                    out.println("Ação inválida");
+                                }
                             } else {
                                 out.println("Ação inválida");
                             }
-                        } else {
-                            out.println("Ação inválida");
+                        } catch (Exception e) {
+                            System.out.println("Erro ao processar requisição: " + e.getMessage());
                         }
                     }
                 }
