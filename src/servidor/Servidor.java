@@ -12,7 +12,6 @@ import model.Pessoa;
 
 public class Servidor {
     private static  List<Hotel> hoteis = new ArrayList<>();
-    //private static Hotel hotel;
     public void startServer() throws IOException {
 
         try (ServerSocket server = new ServerSocket(80)) {
@@ -167,9 +166,7 @@ public class Servidor {
         String endereco = in.readLine();
         int reserva = Integer.parseInt(in.readLine());
         Cliente cliente = new Cliente(cpf, nome, endereco, reserva);
-        // pessoas.add(cliente);
         hotel.addCliente(cliente);
-        //out.println("Cliente cadastrado");
     }
 
     private static void updateCliente(BufferedReader in, PrintWriter out) throws IOException {
@@ -294,7 +291,6 @@ public class Servidor {
         String funcao = in.readLine();
         Funcionario funcionario = new Funcionario(cpf, nome, endereco, salario, funcao);
         hotel.addFuncionario(funcionario);
-        //out.println("FUncionario cadastrado");
     }
 
     private static void updateFuncionario(BufferedReader in, PrintWriter out) throws IOException {
@@ -312,7 +308,6 @@ public class Servidor {
         out.println(-1);
         Hotel hotel= hoteis.get(temp);
         String cpf = in.readLine();
-        // Funcionario funcionario = getFuncionario(cpf);
         Funcionario funcionario = hotel.getFuncionario(cpf);
         String nome = in.readLine();
         String endereco = in.readLine();
