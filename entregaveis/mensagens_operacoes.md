@@ -1,19 +1,23 @@
-Operação: INSERT_PESSOA
-- Campos: operação;cpf;nome;endereco
-- Descrição: Insere uma nova pessoa no servidor.
-- Retorno: "Pessoa inserida com sucesso"
+- Para Cliente:
 
-Operação: INSERT_CLIENTE
-- Campos: operação;cpf;nome;endereco;reserva
-- Descrição: Insere um novo cliente no servidor.
-- Retorno: "Cliente inserido com sucesso"
+CLIENTE_INSERT
+CLIENTE_UPDATE
+CLIENTE_GET
+CLIENTE_DELETE
+CLIENTE_LIST
 
-Operação: INSERT_FUNCIONARIO
-- Campos: operação;cpf;nome;endereco;salario;funcao
-- Descrição: Insere um novo funcionário no servidor.
-- Retorno: "Funcionário inserido com sucesso"
+- Para Funcionário:
 
-Operação: INSERT_HOTEL
-- Campos: operação;nome;endereco;quartos;vagas;classificacao
-- Descrição: Insere um novo hotel no servidor.
-- Retorno: "Hotel inserido com sucesso"
+FUNCIONARIO_INSERT
+FUNCIONARIO_UPDATE
+FUNCIONARIO_GET
+FUNCIONARIO_DELETE
+FUNCIONARIO_LIST
+
+- Para Hotel:
+
+HOTEL_INSERT
+HOTEL_UPDATE
+HOTEL_GET
+HOTEL_DELETE
+HOTEL_LIST
