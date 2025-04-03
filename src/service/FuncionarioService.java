@@ -2,6 +2,7 @@ package service;
 
 import model.Funcionario;
 import model.Hotel;
+import repository.HotelRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class FuncionarioService {
 
-    private static final List<Hotel> hoteis = new ArrayList<>();
+    private final List<Hotel> hoteis = HotelRepository.getHoteis();
 
     public void inserirFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         int temp = Integer.parseInt(in.readLine()) - 1;

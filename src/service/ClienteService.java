@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
 import model.Hotel;
+import repository.HotelRepository;
 
 public class ClienteService {
 
-    private static final List<Hotel> hoteis = new ArrayList<>();
+    private final List<Hotel> hoteis = HotelRepository.getHoteis();
 
     public void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
         int temp = Integer.parseInt(in.readLine()) - 1;

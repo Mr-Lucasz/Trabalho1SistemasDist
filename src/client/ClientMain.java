@@ -43,8 +43,8 @@ public class ClientMain {
 
             // Conectar ao servidor e executar a operação selecionada
             try (Socket conn = new Socket(serverIp, 80);
-                 PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
-                 BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+                    BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
 
                 if (!hasHotels && option >= 6 && option <= 15) {
                     System.out.println("Opção inválida. Nenhum hotel cadastrado.");
@@ -79,8 +79,8 @@ public class ClientMain {
 
     private static boolean checkHotels(String serverIp) throws IOException {
         try (Socket conn = new Socket(serverIp, 80);
-             PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
-             BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+                BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
 
             out.println("LIST_HOTEL");
             int hotelCount = Integer.parseInt(server.readLine());

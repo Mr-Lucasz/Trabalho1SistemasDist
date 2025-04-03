@@ -1,16 +1,16 @@
 package service;
 
 import model.Hotel;
+import repository.HotelRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HotelService {
 
-    private static final List<Hotel> hoteis = new ArrayList<>();
+     private final List<Hotel> hoteis = HotelRepository.getHoteis();
 
     public void inserirHotel(BufferedReader in, PrintWriter out) throws IOException {
         String nome = in.readLine();
