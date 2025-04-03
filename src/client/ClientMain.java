@@ -81,9 +81,12 @@ public class ClientMain {
         try (Socket conn = new Socket(serverIp, 80);
                 PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
                 BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-
             out.println("LIST_HOTEL");
             int hotelCount = Integer.parseInt(server.readLine());
+            // Consumir as linhas restantes
+            for (int i = 0; i < hotelCount; i++) {
+                server.readLine();
+            }
             return hotelCount > 0;
         }
     }
