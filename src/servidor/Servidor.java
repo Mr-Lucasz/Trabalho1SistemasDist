@@ -28,9 +28,9 @@ public class Servidor {
                         System.out.println(msg);
                         switch (msg) {
                             case "INSERT_FUNCIONARIO" ->
-                                    inserirFuncionario(in, out);
+                                    insertFuncionario(in, out);
                             case "INSERT_CLIENTE" ->
-                                    inserirCliente(in, out);
+                                    insertCliente(in, out);
                             case "UPDATE_FUNCIONARIO" ->
                                     updateFuncionario(in, out);
                             case "UPDATE_CLIENTE" ->
@@ -44,11 +44,11 @@ public class Servidor {
                             case "DELETE_CLIENTE" ->
                                     deleteCliente(in, out);
                             case "LIST_FUNCIONARIO" ->
-                                    listAllFuncionario(in, out);
+                                    listFuncionario(in, out);
                             case "LIST_CLIENTE" ->
-                                    listAllCliente(in, out);
+                                    listCliente(in, out);
                             case "LIST_ALL" ->
-                                    listAllPessoa(in, out);
+                                    listPessoas(in, out);
                             case "INSERT_HOTEL" ->
                                     insertHotel(in, out);
                             case "UPDATE_HOTEL" ->
@@ -59,8 +59,6 @@ public class Servidor {
                                     deleteHotel(in, out);
                             case "LIST_HOTEL" ->
                                     listHotel(in, out);
-                            case "SELECT_HOTEL" ->
-                                    selectHotel(in, out);
                             default ->
                                     out.println("Erro");
                         }
@@ -78,15 +76,6 @@ public class Servidor {
         double classificacao = Double.parseDouble(in.readLine());
         Hotel temp = new Hotel(nome, endereco, quartos, vagas, classificacao);
         hoteis.add(temp);
-        //out.println("Hotel cadastrado");
-
-//        if (hotel == null) {
-//            hotel = new Hotel(nome, endereco, quartos, vagas, classificacao);
-//
-//            out.println("Hotel criado");
-//        } else {
-//            out.println("Hotel já cadastrado");
-//        }
     }
 
     private static void updateHotel(BufferedReader in, PrintWriter out) throws IOException {
@@ -159,31 +148,7 @@ public class Servidor {
             out.println("0");
     }
 
-    private static void selectHotel(BufferedReader in, PrintWriter out) throws IOException {
-        if (!hoteis.isEmpty())
-        {
-            out.println(hoteis.size());
-            for (Hotel h : hoteis){
-                out.println(h.toString());
-            }
-        }
-        else
-            out.println("Hoteis não cadastrados");
-        int num = Integer.parseInt(in.readLine());
-        if(!hoteis.isEmpty())
-        {
-            if((num-1)>=0)
-            {
-                Hotel hotel=hoteis.get(num-1);
-                out.println("Hotel " + hotel.getNome() + " selecionado");
-            }
-            else
-                out.println("Selecione um número válido");
-        } else
-            out.println("Cadastre um hotel");
-    }
-
-    private static void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
+    private static void insertCliente(BufferedReader in, PrintWriter out) throws IOException {
         int temp = Integer.parseInt(in.readLine())-1;
         if(hoteis.isEmpty())
         {
@@ -275,7 +240,7 @@ public class Servidor {
         out.println(hotel.removeCliente(cpf));
     }
 
-    private static void listAllCliente(BufferedReader in, PrintWriter out) throws IOException {
+    private static void listCliente(BufferedReader in, PrintWriter out) throws IOException {
         int temp2 = Integer.parseInt(in.readLine())-1;
         if(hoteis.isEmpty())
         {
@@ -308,7 +273,7 @@ public class Servidor {
         }
     }
 
-    private static void inserirFuncionario(BufferedReader in, PrintWriter out) throws IOException {
+    private static void insertFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         int temp = Integer.parseInt(in.readLine())-1;
         if(hoteis.isEmpty())
         {
@@ -403,7 +368,7 @@ public class Servidor {
         out.println(hotel.removeFuncionario(cpf));
     }
 
-    private static void listAllFuncionario(BufferedReader in, PrintWriter out) throws IOException {
+    private static void listFuncionario(BufferedReader in, PrintWriter out) throws IOException {
         int temp2 = Integer.parseInt(in.readLine())-1;
         if(hoteis.isEmpty())
         {
@@ -436,7 +401,7 @@ public class Servidor {
         }
     }
 
-    private static void listAllPessoa(BufferedReader in, PrintWriter out) throws IOException {
+    private static void listPessoas(BufferedReader in, PrintWriter out) throws IOException {
         int temp = Integer.parseInt(in.readLine())-1;
         if(hoteis.isEmpty())
         {

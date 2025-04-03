@@ -40,22 +40,22 @@ public class ClientMain {
                 try (PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
                     BufferedReader server = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                     switch (option) {
-                        case 1 -> criarHotel(server, out, scanner);
+                        case 1 -> insertHotel(server, out, scanner);
                         case 2 -> updateHotel(server, out, scanner);
                         case 3 -> listHotel(server, out, scanner);
                         case 4 -> getHotel(server, out, scanner);
-                        case 5 -> removeHotel(server, out, scanner);
+                        case 5 -> deleteHotel(server, out, scanner);
                         case 6 -> insertCliente(server, out, scanner);
                         case 7 -> updateCliente(server, out, scanner);
                         case 8 -> getCliente(server, out, scanner);
-                        case 9 -> removeCliente(server, out, scanner);
-                        case 10 -> listarCLientes(server, out, scanner);
+                        case 9 -> deleteCliente(server, out, scanner);
+                        case 10 -> listCLiente(server, out, scanner);
                         case 11 -> insertFuncionario(server, out, scanner);
                         case 12 -> updateFuncionario(server, out, scanner);
                         case 13 -> getFuncionario(server, out, scanner);
                         case 14 -> deleteFuncionario(server, out, scanner);
                         case 15 -> listFuncionario(server, out, scanner);
-                        case 16 -> listAll(server, out, scanner);
+                        case 16 -> listPessoas(server, out, scanner);
                         case 17 -> {
                             System.out.println("Saindo...");
                             scanner.close();
@@ -72,7 +72,7 @@ public class ClientMain {
         }
     }
 }
-    public static void criarHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+    public static void insertHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_HOTEL");
         System.out.println("Criar Hotel:");
         System.out.print("Nome: ");
@@ -85,7 +85,6 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.print("Classificação: ");
         out.println(scanner.nextLine());
-        //System.out.println(server.readLine());
     }
     public static void updateHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_HOTEL");
@@ -110,7 +109,7 @@ public class ClientMain {
         out.println(scanner.nextLine());
         System.out.println(server.readLine());
     }
-    public static void removeHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+    public static void deleteHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_HOTEL");
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
@@ -125,18 +124,6 @@ public class ClientMain {
             {
                 System.out.println(server.readLine());
             }
-    }
-    private static void selectHotel(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
-        out.println("SELECT_HOTEL");
-        int temp = Integer.parseInt(server.readLine());
-        System.out.println("Hotéis: ");
-        for(int i=0;i<temp; i++)
-        {
-            System.out.println((i+1) + ". " + server.readLine());
-        }
-        System.out.println("Numero:");
-        out.println(scanner.nextLine());
-        System.out.println(server.readLine());
     }
     public static void insertCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("INSERT_CLIENTE");
@@ -155,7 +142,6 @@ public class ClientMain {
             System.out.print("Reserva: ");
             out.println(scanner.nextLine());
         }
-        //System.out.println(server.readLine());
     }
     public static void updateCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_CLIENTE");
@@ -189,7 +175,7 @@ public class ClientMain {
             System.out.println(server.readLine());
         }
     }
-    public static void removeCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+    public static void deleteCliente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("DELETE_CLIENTE");
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
@@ -202,7 +188,7 @@ public class ClientMain {
             System.out.println(server.readLine());
         }
     }
-    public static void listarCLientes(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+    public static void listCLiente(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_CLIENTE");
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
@@ -236,7 +222,6 @@ public class ClientMain {
             System.out.print("Função: ");
             out.println(scanner.nextLine());
         }
-        //System.out.println(server.readLine());
     }
     public static void updateFuncionario(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("UPDATE_FUNCIONARIO");
@@ -301,7 +286,7 @@ public class ClientMain {
         }
 
     }
-    public static void listAll(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
+    public static void listPessoas(BufferedReader server, PrintWriter out, Scanner scanner) throws IOException {
         out.println("LIST_ALL");
         System.out.print("NUM. HOTEL: ");
         out.println(scanner.nextLine());
