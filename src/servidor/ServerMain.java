@@ -1,4 +1,4 @@
-import servidor.Servidor;
+package servidor;
 
 import java.io.IOException;
 
