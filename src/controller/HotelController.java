@@ -1,9 +1,11 @@
+
 package controller;
+
+import service.HotelService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import service.HotelService;
 
 public class HotelController {
 
@@ -11,13 +13,12 @@ public class HotelController {
 
     public void handleRequest(String action, BufferedReader in, PrintWriter out) throws IOException {
         switch (action) {
-            case "INSERT_HOTEL" -> hotelService.insertHotel(in, out);
-            case "UPDATE_HOTEL" -> hotelService.updateHotel(in, out);
-            case "GET_HOTEL" -> hotelService.getHotel(out);
-            case "DELETE_HOTEL" -> hotelService.deleteHotel(out);
-            case "LIST_HOTEL" -> hotelService.listHotel(out);
-            case "SELECT_HOTEL" -> hotelService.selectHotel(in, out);
-            default -> out.println("Erro");
+            case "INSERT_HOTEL" -> hotelService.inserirHotel(in, out);
+            case "UPDATE_HOTEL" -> hotelService.atualizarHotel(in, out);
+            case "GET_HOTEL" -> hotelService.obterHotel(in, out);
+            case "DELETE_HOTEL" -> hotelService.removerHotel(in, out);
+            case "LIST_HOTEL" -> hotelService.listarHoteis(in, out);
+            default -> out.println("Ação inválida");
         }
     }
 }

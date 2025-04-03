@@ -7,42 +7,47 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
 import model.Hotel;
-import model.Pessoa;
+import repository.HotelRepository;
 
 public class ClienteService {
-    private static Hotel hotel;
+
+    private final List<Hotel> hoteis = HotelRepository.getHoteis();
 
     public void inserirCliente(BufferedReader in, PrintWriter out) throws IOException {
-        hotel = HotelService.getSelectedHotel(); // Atualiza o hotel primeiro
-        if (hotel == null) {
-            out.println("Erro: Nenhum hotel selecionado.");
+        int temp = Integer.parseInt(in.readLine()) - 1;
+        if (hoteis.isEmpty()) {
+            out.println(0);
             return;
         }
+        if (temp < 0 || temp >= hoteis.size()) {
+            out.println(1);
+            return;
+        }
+        out.println(-1);
+        Hotel hotel = hoteis.get(temp);
         String cpf = in.readLine();
         String nome = in.readLine();
         String endereco = in.readLine();
-        String reservaStr = in.readLine();
-    
-        int reserva;
-        try {
-            reserva = Integer.parseInt(reservaStr);
-        } catch (NumberFormatException e) {
-            out.println("Erro: O campo 'reserva' deve ser um número inteiro.");
-            return;
-        }
+        int reserva = Integer.parseInt(in.readLine());
         Cliente cliente = new Cliente(cpf, nome, endereco, reserva);
-        hotel.getPessoas().add(cliente);
-        out.println("Cliente cadastrado");
+
+        hotel.addCliente(cliente);
     }
-    
-    public void updateCliente(BufferedReader in, PrintWriter out) throws IOException {
-        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
-        if (hotel == null) {
-            out.println("Erro: Nenhum hotel selecionado.");
+
+    public void atualizarCliente(BufferedReader in, PrintWriter out) throws IOException {
+        int temp = Integer.parseInt(in.readLine()) - 1;
+        if (hoteis.isEmpty()) {
+            out.println(0);
             return;
         }
+        if (temp < 0 || temp >= hoteis.size()) {
+            out.println(1);
+            return;
+        }
+        out.println(-1);
+        Hotel hotel = hoteis.get(temp);
         String cpf = in.readLine();
-        Cliente cliente = findClienteByCpf(cpf);
+        Cliente cliente = hotel.getCliente(cpf);
         if (cliente != null) {
             String nome = in.readLine();
             String endereco = in.readLine();
@@ -50,71 +55,69 @@ public class ClienteService {
             cliente.setNome(nome);
             cliente.setEndereco(endereco);
             cliente.setReserva(reserva);
-            out.println("Cliente atualizado");
+            out.println("Cliente atualizado com sucesso");
         } else {
             out.println("Cliente não encontrado");
         }
     }
 
-    public void getCliente(BufferedReader in, PrintWriter out) throws IOException {
-        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
-        if (hotel == null) {
-            out.println("Erro: Nenhum hotel selecionado.");
+    public void obterCliente(BufferedReader in, PrintWriter out) throws IOException {
+        int temp = Integer.parseInt(in.readLine()) - 1;
+        if (hoteis.isEmpty()) {
+            out.println(0);
             return;
         }
+        if (temp < 0 || temp >= hoteis.size()) {
+            out.println(1);
+            return;
+        }
+        out.println(-1);
+        Hotel hotel = hoteis.get(temp);
         String cpf = in.readLine();
-        Cliente cliente = findClienteByCpf(cpf);
-        if (cliente != null) {
-            out.println(cliente.toString());
-        } else {
-            out.println("Cliente não encontrado");
-        }
+        out.println(hotel.getStringCLiente(cpf));
     }
 
-    public void deleteCliente(BufferedReader in, PrintWriter out) throws IOException {
-        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
-        if (hotel == null) {
-            out.println("Erro: Nenhum hotel selecionado.");
+    public void removerCliente(BufferedReader in, PrintWriter out) throws IOException {
+        int temp = Integer.parseInt(in.readLine()) - 1;
+        if (hoteis.isEmpty()) {
+            out.println(0);
             return;
         }
+        if (temp < 0 || temp >= hoteis.size()) {
+            out.println(1);
+            return;
+        }
+        out.println(-1);
+        Hotel hotel = hoteis.get(temp);
         String cpf = in.readLine();
-        Cliente cliente = findClienteByCpf(cpf);
-        if (cliente != null) {
-            hotel.getPessoas().remove(cliente); // Remove diretamente da lista de pessoas
-            out.println("Cliente removido");
-        } else {
-            out.println("Cliente não encontrado");
-        }
+        out.println(hotel.removeCliente(cpf));
     }
 
-    public void listAllCliente(PrintWriter out) {
-        hotel = HotelService.getSelectedHotel(); // Atualiza a variável hotel
-        if (hotel == null) {
-            out.println("Erro: Nenhum hotel selecionado.");
+    public void listarClientes(BufferedReader in, PrintWriter out) throws IOException {
+        int temp = Integer.parseInt(in.readLine()) - 1;
+        if (hoteis.isEmpty()) {
+            out.println(0);
             return;
         }
+        if (temp < 0 || temp >= hoteis.size()) {
+            out.println(1);
+            return;
+        }
+        out.println(-1);
+        Hotel hotel = hoteis.get(temp);
         List<Cliente> clientes = new ArrayList<>();
-        for (Pessoa pessoa : hotel.getPessoas()) {
+        for (var pessoa : hotel.getPessoas()) {
             if (pessoa instanceof Cliente) {
                 clientes.add((Cliente) pessoa);
             }
         }
         if (clientes.isEmpty()) {
-            out.println("Nenhum cliente cadastrado.");
+            out.println(0);
             return;
         }
         out.println(clientes.size());
         for (Cliente cliente : clientes) {
             out.println(cliente.toString());
         }
-    }
-
-    private Cliente findClienteByCpf(String cpf) {
-        for (Pessoa pessoa : hotel.getPessoas()) {
-            if (pessoa instanceof Cliente && pessoa.getCpf().equals(cpf)) {
-                return (Cliente) pessoa;
-            }
-        }
-        return null;
     }
 }
